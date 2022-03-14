@@ -58,6 +58,7 @@ public class EmployeeService extends ServiceBase {
     }
 
     public List <String> create(EmployeeView ev, String pepper) {
+
         String pass = EncryptUtil.getPasswordEncrypt(ev.getPassword(), pepper);
         ev.setPassword(pass);
 
@@ -92,8 +93,10 @@ public class EmployeeService extends ServiceBase {
         }
         savedEmp.setName(ev.getName());
         savedEmp.setAdminFlag(ev.getAdminFlag());
+
         LocalDateTime today = LocalDateTime.now();
         savedEmp.setUpdatedAt(today);
+
         List<String> errors = EmployeeValidator.validate(this, savedEmp, validateCode, validatePass);
 
         if (errors.size() == 0) {
