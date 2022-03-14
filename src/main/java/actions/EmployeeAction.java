@@ -93,11 +93,12 @@ public class EmployeeAction extends ActionBase {
 
         EmployeeView ev = service.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
 
-        if(ev == null || ev.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+        if (ev == null || ev.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
 
             forward(ForwardConst.FW_ERR_UNKNOWN);
             return;
         }
+
         putRequestScope(AttributeConst.EMPLOYEE, ev);
 
         forward(ForwardConst.FW_EMP_SHOW);

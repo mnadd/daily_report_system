@@ -10,7 +10,9 @@
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
-        <h2>id : ${employee.id} の従業員 詳細ページ</h2>
+
+        <h2>id : ${employee.id} の従業員情報 詳細ページ</h2>
+
         <table>
             <tbody>
                 <tr>
@@ -26,7 +28,8 @@
                     <td><c:choose>
                             <c:when test="${employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">管理者</c:when>
                             <c:otherwise>一般</c:otherwise>
-                        </c:choose>
+                        </c:choose></td>
+                </tr>
                 <tr>
                     <th>登録日時</th>
                     <fmt:parseDate value="${employee.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
@@ -41,9 +44,11 @@
         </table>
 
         <p>
-            <a href="<c:url value='?action=${actEmp}&command=${commEdit}&id${employee.id}' />">この従業員情報を編集する</a>
+            <a href="<c:url value='?action=${actEmp}&command=${commEdit}&id=${employee.id}' />">この従業員情報を編集する</a>
         </p>
+
         <p>
-            <a href="<c:url value='?action=${actEmp}&command=${commIdx}'/>">一覧に戻る</a>
+            <a href="<c:url value='?action=${actEmp}&command=${commIdx}' />">一覧に戻る</a>
+        </p>
     </c:param>
 </c:import>
