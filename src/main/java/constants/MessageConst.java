@@ -28,4 +28,3 @@ public enum MessageConst {
         return this.text;
     }
 }
-
