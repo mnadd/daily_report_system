@@ -45,6 +45,7 @@ public class LoginFilter implements Filter {
 
         if(servletPath.matches("/css.*")) {
             chain.doFilter(request, response);
+
         } else {
             HttpSession session = ((HttpServletRequest) request).getSession();
 
@@ -67,6 +68,7 @@ public class LoginFilter implements Filter {
             } else {
                 if(ForwardConst.ACT_AUTH.getValue().equals(action)) {
                     if(ForwardConst.CMD_SHOW_LOGIN.getValue().equals(command)) {
+
                         ((HttpServletResponse) response).sendRedirect(
                                 contextPath
                                    + "?action=" + ForwardConst.ACT_TOP.getValue()
