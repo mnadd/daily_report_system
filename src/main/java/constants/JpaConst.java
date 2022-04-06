@@ -33,9 +33,37 @@ public interface JpaConst {
     String REP_COL_CREATED_AT = "created_at";
     String REP_COL_UPDATED_AT = "updated_at";
 
+    String TABLE_ATT = "attendances";
+
+    String ATT_COL_ID = "id";
+    String ATT_COL_EMP = "employee_id";
+    String ATT_COL_ATT_DATE = "attendance_date";
+    String ATT_COL_IN = "in";
+    String ATT_COL_OUT = "out";
+    String ATT_COL_PERMIT_FLAG = "permission_flag";
+
+    int PERMIT_TRUE = 1;
+    int PERMIT_FALSE = 0;
+
+    String TABLE_APP = "applications";
+
+    String APP_COL_ID = "id";
+    String APP_COL_EMP = "employee_id";
+    String APP_COL_ATT = "attendance_id";
+    String APP_COL_APP_DATE = "application_date";
+    String APP_COL_TYPE_FLAG = "type";
+    String APP_COL_TIME = "time";
+    String APP_COL_CONTENT = "Content";
+    String APP_COL_COMMENT = "comment";
+
+    int TYPE_IN = 1;
+    int TYPE_OUT = 0;
+
 
     String ENTITY_EMP = "employee";
     String ENTITY_REP = "report";
+    String ENTITY_ATT = "attendance";
+    String ENTITY_APP = "application";
 
 
     String JPQL_PARM_CODE = "code";
@@ -66,6 +94,20 @@ public interface JpaConst {
 
     String Q_REP_COUNT_ALL_MINE = ENTITY_REP + ".countAllMine";
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
+
+    String Q_ATT_GET_ALL = ENTITY_ATT + ".getAll";
+    String Q_ATT_GET_ALL_DEF = "SELECT a FROM Attendance AS a ORDER BY a.id";
+
+    String Q_ATT_GET_COUNT =ENTITY_ATT + ".count";
+    String Q_ATT_GET_COUNT_DEF = "SELECT COUNT(a) FROM Attendance AS a";
+
+    String Q_APP_GET_ALL = ENTITY_APP + ".getAll";
+    String Q_APP_GET_ALL_DEF = "SELECT ap FROM Application AS ap ORDER BY ap.id DESC";
+
+    String Q_APP_GET_COUNT = ENTITY_APP + ".count";
+    String Q_APP_GET_COUNT_DEF = "SELECT COUNT(ap) FROM Application AS ap";
+
+
 
 
 }

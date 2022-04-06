@@ -16,7 +16,7 @@ public enum AttributeConst {
 
     EMPLOYEE("employee"),
     EMPLOYEES("employees"),
-    EMP_COUNT("employee_count"),
+    EMP_COUNT("employees_count"),
     EMP_ID("id"),
     EMP_CODE("code"),
     EMP_PASS("password"),
@@ -35,7 +35,32 @@ public enum AttributeConst {
     REP_ID("id"),
     REP_DATE("report_date"),
     REP_TITLE("title"),
-    REP_CONTENT("content");
+    REP_CONTENT("content"),
+
+    ATTENDANCE("attendance"),
+    ATTENDANCES("attendances"),
+    ATT_COUNT("attendance_count"),
+    ATT_ID("id"),
+    ATT_DATE("attendance_date"),
+    ATT_IN("in"),
+    ATT_OUT("out"),
+    ATT_PERMIT_FLAG("permission_flag"),
+
+    PERMIT_TRUE(1),
+    PERMIT_FALSE(0),
+
+    APPLICATION("application"),
+    APPLICATIONS("applications"),
+    APP_COUNT("application_count"),
+    APP_ID("id"),
+    APP_DATE("application_date"),
+    APP_TYPE_FLAG("type"),
+    APP_TIME("time"),
+    APP_CONTENT("Content"),
+    APP_COMMENT("comment"),
+
+    TYPE_IN(1),
+    TYPE_OUT(0);
 
     private final String text;
     private final Integer i;
