@@ -44,7 +44,7 @@ public enum AttributeConst {
     ATT_DATE("attendance_date"),
     ATT_IN("in"),
     ATT_OUT("out"),
-    ATT_PERMIT_FLAG("permission_flag"),
+    ATT_PERMIT_FLAG("permit_flag"),
 
     PERMIT_TRUE(1),
     PERMIT_FALSE(0),

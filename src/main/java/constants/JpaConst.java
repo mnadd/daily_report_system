@@ -40,7 +40,7 @@ public interface JpaConst {
     String ATT_COL_ATT_DATE = "attendance_date";
     String ATT_COL_IN = "in";
     String ATT_COL_OUT = "out";
-    String ATT_COL_PERMIT_FLAG = "permission_flag";
+    String ATT_COL_PERMIT_FLAG = "permit_flag";
 
     int PERMIT_TRUE = 1;
     int PERMIT_FALSE = 0;

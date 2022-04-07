@@ -1,7 +1,7 @@
 package actions.views;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +20,9 @@ public class AttendanceView {
 
     private LocalDate attendanceDate;
 
-    private LocalTime in;
+    private LocalDateTime in;
 
-    private LocalTime out;
+    private LocalDateTime out;
 
     private Integer permitFlag;
 

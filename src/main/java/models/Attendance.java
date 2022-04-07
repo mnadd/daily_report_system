@@ -1,7 +1,7 @@
 package models;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,10 +50,10 @@ public class Attendance {
     private LocalDate attendanceDate;
 
     @Column(name = JpaConst.ATT_COL_IN, nullable = false)
-    private LocalTime in;
+    private LocalDateTime in;
 
     @Column(name = JpaConst.ATT_COL_OUT, nullable = false)
-    private LocalTime out;
+    private LocalDateTime out;
 
     @Column(name = JpaConst.ATT_COL_PERMIT_FLAG)
     private Integer permitFlag;
