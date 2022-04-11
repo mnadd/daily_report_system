@@ -48,7 +48,7 @@ public class Report {
     @Id
     @Column(name = JpaConst.REP_COL_ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = JpaConst.REP_COL_EMP, nullable = false)

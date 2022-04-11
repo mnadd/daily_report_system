@@ -23,11 +23,11 @@ import lombok.Setter;
 @Table(name = JpaConst.TABLE_ATT)
 @NamedQueries({
     @NamedQuery(
-            name = JpaConst.Q_ATT_GET_ALL,
-            query = JpaConst.Q_ATT_GET_ALL_DEF),
+            name = JpaConst.Q_ATT_GET_ALL_MINE,
+            query = JpaConst.Q_ATT_GET_ALL_MINE_DEF),
     @NamedQuery(
-            name = JpaConst.Q_ATT_GET_COUNT,
-            query = JpaConst.Q_ATT_GET_COUNT_DEF)
+            name = JpaConst.Q_ATT_COUNT_ALL_MINE,
+            query = JpaConst.Q_ATT_COUNT_ALL_MINE_DEF)
 })
 
 @Getter
@@ -35,6 +35,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+
 public class Attendance {
 
     @Id
@@ -49,13 +50,19 @@ public class Attendance {
     @Column(name = JpaConst.ATT_COL_ATT_DATE, nullable = false)
     private LocalDate attendanceDate;
 
-    @Column(name = JpaConst.ATT_COL_IN, nullable = false)
-    private LocalDateTime in;
+    @Column(name = JpaConst.ATT_COL_START, nullable = false)
+    private LocalDateTime start;
 
-    @Column(name = JpaConst.ATT_COL_OUT, nullable = false)
-    private LocalDateTime out;
+    @Column(name = JpaConst.ATT_COL_FINISH, nullable = true)
+    private LocalDateTime finish;
 
-    @Column(name = JpaConst.ATT_COL_PERMIT_FLAG)
+    @Column(name = JpaConst.ATT_COL_ACT_TIME, nullable = true)
+    private LocalDateTime actualTime;
+
+    @Column(name = JpaConst.ATT_COL_OVER_TIME, nullable = true)
+    private LocalDateTime overTime;
+
+    @Column(name = JpaConst.ATT_COL_PERMIT_FLAG, nullable = true)
     private Integer permitFlag;
 
 }

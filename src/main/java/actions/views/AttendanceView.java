@@ -20,9 +20,13 @@ public class AttendanceView {
 
     private LocalDate attendanceDate;
 
-    private LocalDateTime in;
+    private LocalDateTime start;
 
-    private LocalDateTime out;
+    private LocalDateTime finish;
+
+    private LocalDateTime actualTime;
+
+    private LocalDateTime overTime;
 
     private Integer permitFlag;
 

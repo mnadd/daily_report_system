@@ -12,8 +12,10 @@ public class AttendanceConverter {
                 av.getId(),
                 EmployeeConverter.toModel(av.getEmployee()),
                 av.getAttendanceDate(),
-                av.getIn(),
-                av.getOut(),
+                av.getStart(),
+                av.getFinish(),
+                av.getActualTime(),
+                av.getOverTime(),
                 av.getPermitFlag());
 
     }
@@ -27,8 +29,10 @@ public class AttendanceConverter {
                 a.getId(),
                 EmployeeConverter.toView(a.getEmployee()),
                 a.getAttendanceDate(),
-                a.getIn(),
-                a.getOut(),
+                a.getStart(),
+                a.getFinish(),
+                a.getActualTime(),
+                a.getOverTime(),
                 a.getPermitFlag());
     }
 
@@ -45,8 +49,10 @@ public class AttendanceConverter {
         a.setId(av.getId());
         a.setEmployee(EmployeeConverter.toModel(av.getEmployee()));
         a.setAttendanceDate(av.getAttendanceDate());
-        a.setIn(av.getIn());
-        a.setOut(av.getOut());
+        a.setStart(av.getStart());
+        a.setFinish(av.getFinish());
+        a.setActualTime(av.getActualTime());
+        a.setOverTime(av.getOverTime());
         a.setPermitFlag(av.getPermitFlag());
     }
 
