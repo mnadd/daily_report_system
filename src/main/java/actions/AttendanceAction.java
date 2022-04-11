@@ -1,12 +1,15 @@
 package actions;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
 
 import actions.views.AttendanceView;
 import actions.views.EmployeeView;
+import actions.views.ReportView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
@@ -53,7 +56,15 @@ public class AttendanceAction extends ActionBase {
     public void entryNew() throws ServletException, IOException {
 
         putRequestScope(AttributeConst.TOKEN, getTokenId());
-        putRequestScope(AttributeConst.ATTENDANCE, new AttendanceView());
+        
+        
+        AttendanceView av = new AttendanceView();
+        av.setAttendanceDate(LocalDate.now());
+        putRequestScope(AttributeConst.ATTENDANCE, av);
+        
+        av.setStart(LocalDateTime.now());
+        av.setFinish(LocalDateTime.now());
+
 
         forward(ForwardConst.FW_ATT_NEW);
 
@@ -62,17 +73,25 @@ public class AttendanceAction extends ActionBase {
     public void create() throws ServletException, IOException {
 
         if(checkToken()) {
-
-
-        }
-        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            
+            LocalDate day = null;
+            if (getRequestParam(AttributeConst.ATT_DATE) == null
+                    || getRequestParam(AttributeConst.ATT_DATE).equals("")) {
+                day = LocalDate.now();
+            } else {
+                day = LocalDate.parse(getRequestParam(AttributeConst.ATT_DATE));
+            }
+            workStart = LocalDateTime.parse(getRequestParam(AttributeConst.ATT_START));
+        
+            
+         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
         AttendanceView av = new AttendanceView(
                 null,
                 ev,
-                null,
-                null,
-                null,
+                day,
+                getRequestParam(AttributeConst.ATT_START),
+                getRequestParam(AttributeConst.ATT_FINISH),
                 null,
                 null,
                 null);
