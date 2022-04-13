@@ -1,6 +1,7 @@
 package services;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import actions.views.AttendanceConverter;
@@ -17,8 +18,8 @@ public class AttendanceService extends ServiceBase {
 
         List<Attendance> attendances = em.createNamedQuery(JpaConst.Q_ATT_GET_ALL_MINE, Attendance.class)
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
-                .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
-                .setMaxResults(JpaConst.ROW_PER_PAGE)
+                .setFirstResult(JpaConst.ATT_ROW_PER_PAGE * (page - 1))
+                .setMaxResults(JpaConst.ATT_ROW_PER_PAGE)
                 .getResultList();
         return AttendanceConverter.toViewList(attendances);
     }
@@ -39,12 +40,21 @@ public class AttendanceService extends ServiceBase {
 
     public List<String> create(AttendanceView av) {
 
-            LocalDateTime dt = LocalDateTime.now();
-            av.setStart(dt);
-            av.setFinish(dt);
+            LocalDate ld = LocalDate.now();
+            av.setAttendanceDate(ld);
+
+            LocalTime lt = LocalTime.now();
+            av.setStart(lt);
             createInternal(av);
             return null;
         }
+    public List<String> workFinish(AttendanceView av) {
+
+        LocalTime lt = LocalTime.now();
+        av.setFinish(lt);
+        createInternal(av);
+        return null;
+    }
 
 
 

@@ -1,7 +1,7 @@
 package models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,16 +51,16 @@ public class Attendance {
     private LocalDate attendanceDate;
 
     @Column(name = JpaConst.ATT_COL_START, nullable = false)
-    private LocalDateTime start;
+    private LocalTime start;
 
     @Column(name = JpaConst.ATT_COL_FINISH, nullable = true)
-    private LocalDateTime finish;
+    private LocalTime finish;
 
     @Column(name = JpaConst.ATT_COL_ACT_TIME, nullable = true)
-    private LocalDateTime actualTime;
+    private LocalTime actualTime;
 
     @Column(name = JpaConst.ATT_COL_OVER_TIME, nullable = true)
-    private LocalDateTime overTime;
+    private LocalTime overTime;
 
     @Column(name = JpaConst.ATT_COL_PERMIT_FLAG, nullable = true)
     private Integer permitFlag;

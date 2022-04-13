@@ -5,6 +5,7 @@ public interface JpaConst {
     String PERSISTENCE_UNIT_NAME = "daily_report_system";
 
     int ROW_PER_PAGE = 15;
+    int ATT_ROW_PER_PAGE = 31;
 
     String TABLE_EMP = "employees";
 

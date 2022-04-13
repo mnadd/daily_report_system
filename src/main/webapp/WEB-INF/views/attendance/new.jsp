@@ -7,6 +7,9 @@
 <c:set var="action" value="${ForwardConst.ACT_ATT.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commWorkFin" value="${ForwardConst.CMD_WORKFINISH.getValue()}" />
+
+
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -19,16 +22,42 @@
                     </c:forEach>
                 </div>
             </c:if>
-            <%--<fmt:formatDate value="${today}" type="DATE" pattern="yyyy年MM月dd日（E） KK時mm分ss秒" /> --%>
+            <%--<fmt:formatDate value="${today}" type="DATE" pattern="yyyy年MM月dd日（E） KK時mm分ss秒" />
+            <c:out value="${today}" /> --%>
 
-            <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
-                <input type="hidden" name="${AttributeConst.ATT_START.getValue()}" value="${attendance.start}" />
-                <button type="submit">出勤</button>
-            </form>
-            <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
-                <input type="hidden" name="${AttributeConst.ATT_FINISH.getValue()}" value="${attendance.finish}" />
-                <button type="submit">退勤</button>
-            </form>
+            <c:choose>
+                <c:when test="${attendance.start != null}">
+                    <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
+                        <button type="submit" disabled>出勤</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
+                        <button type="submit" name="${AttributeConst.ATT_START.getValue()}" value="attendanceStart" >出勤</button>
+                        <input type="hidden" name="${AttributeConst.ATT_ID.getValue()}" value="${attendance.id}" />
+                        <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+                    </form>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${attendance.start == null}">
+                    <form method="POST" action="<c:url value='?action=${action}&command=${commWorkFin}' />">
+                        <button type="submit" disabled>退勤</button>
+                    </form>
+                </c:when>
+                <c:when test="${attendance.finish != null}">
+                    <form method="POST" action="<c:url value='?action=${action}&command=${commWorkFin}' />">
+                        <button type="submit" disabled>退勤</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <form method="POST" action="<c:url value='?action=${action}&command=${commworkFin}' />">
+                        <button type="submit" name="${AttributeConst.ATT_FINISH.getValue()}" value="attendanceFinish" >退勤</button>
+                        <input type="hidden" name="${AttributeConst.ATT_ID.getValue()}" value="${attendance.id}" />
+                        <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+                    </form>
+                </c:otherwise>
+            </c:choose>
 
         <p><a href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a></p>
     </c:param>

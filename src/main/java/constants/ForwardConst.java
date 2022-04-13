@@ -8,6 +8,7 @@ public enum ForwardConst {
     ACT_REP("Report"),
     ACT_AUTH("Auth"),
     ACT_ATT("Attendance"),
+    ACT_APP("application"),
 
     CMD("command"),
     CMD_NONE(""),
@@ -21,6 +22,7 @@ public enum ForwardConst {
     CMD_EDIT("edit"),
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
+    CMD_WORKFINISH("workFinish"),
 
     FW_ERR_UNKNOWN("error/unknown"),
     FW_TOP_INDEX("topPage/index"),
