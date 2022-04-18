@@ -30,14 +30,14 @@
                         <td class="application_name"><c:out value="${application.employee.name}" /></td>
                         <td class="application_date"><fmt:formatDate value='${applicationtDay}' pattern='yyyy-MM-dd' /></td>
                         <td class="application_action">
-                            <c:choose>
+                            <%--<c:choose>
                                 <c:when test="${application.permitFlag == AttributeConst.PERMIT_FLAG_TRUE.getIntegerValue()}">
                                     （済）
                                 </c:when>
-                                <c:otherwise>
+                                <c:otherwise>  --%>
                                     <a href="<c:url value='?action=${actAPP}&command=${commShow}&id=${application.id}' />">詳細を見る</a>
-                                </c:otherwise>
-                            </c:choose>
+                                <%--</c:otherwise>
+                            </c:choose> --%>
                         </td>
                     </tr>
                 </c:forEach>

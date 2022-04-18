@@ -54,13 +54,13 @@ public enum AttributeConst {
     APP_COUNT("application_count"),
     APP_ID("id"),
     APP_DATE("application_date"),
-    APP_TYPE_FLAG("type"),
+    APP_TYPE_FLAG("type_flag"),
     APP_TIME("time"),
-    APP_CONTENT("Content"),
+    APP_CONTENT("appContent"),
     APP_COMMENT("comment"),
 
     TYPE_START(1),
-    TYPE_OUT(0);
+    TYPE_FINISH(0);
 
     private final String text;
     private final Integer i;

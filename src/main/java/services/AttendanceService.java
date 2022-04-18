@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import actions.views.AttendanceConverter;
 import actions.views.AttendanceView;
 import actions.views.EmployeeConverter;
@@ -33,6 +35,18 @@ public class AttendanceService extends ServiceBase {
         return count;
     }
 
+    public AttendanceView findOne(EmployeeView employee, String attendanceDate) {
+        Attendance av = null;
+        try {
+            av = em.createNamedQuery(JpaConst.Q_ATT_GET_BY_EMP_AND_DATE, Attendance.class)
+                    .setParameter(JpaConst.JPQL_PARM_EMP, employee)
+                    .setParameter(JpaConst.JPQL_PARM_DATE, attendanceDate)
+                    .getSingleResult();
+        } catch(NoResultException ex) {
+        }
+        return AttendanceConverter.toView(av);
+    }
+
     public AttendanceView findOne(int id) {
 
         return AttendanceConverter.toView(findOneInternal(id));
@@ -47,12 +61,14 @@ public class AttendanceService extends ServiceBase {
             av.setStart(lt);
             createInternal(av);
             return null;
+
         }
-    public List<String> workFinish(AttendanceView av) {
+
+    public List<String> workfin(AttendanceView av) {
 
         LocalTime lt = LocalTime.now();
         av.setFinish(lt);
-        createInternal(av);
+        workfinInternal(av);
         return null;
     }
 
@@ -70,6 +86,13 @@ public class AttendanceService extends ServiceBase {
 
     }
 
+    private void workfinInternal(AttendanceView av) {
+
+        em.getTransaction().begin();
+        Attendance a = findOneInternal(av.getId());
+        AttendanceConverter.copyViewToModel(a, av);
+        em.getTransaction().commit();
+    }
 
 
 }

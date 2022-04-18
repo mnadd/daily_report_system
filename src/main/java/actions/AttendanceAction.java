@@ -9,7 +9,6 @@ import actions.views.AttendanceView;
 import actions.views.EmployeeView;
 import constants.AttributeConst;
 import constants.ForwardConst;
-import constants.JpaConst;
 import constants.MessageConst;
 import services.AttendanceService;
 
@@ -39,29 +38,32 @@ public class AttendanceAction extends ActionBase {
         putRequestScope(AttributeConst.ATTENDANCES, attendances);
         putRequestScope(AttributeConst.ATT_COUNT, myattendancesCount);
         putRequestScope(AttributeConst.PAGE, page);
-        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ATT_ROW_PER_PAGE);
 
         String flush = getSessionScope(AttributeConst.FLUSH);
         if(flush != null) {
             putRequestScope(AttributeConst.FLUSH, flush);
             removeSessionScope(AttributeConst.FLUSH);
         }
-
         forward(ForwardConst.FW_ATT_INDEX);
-
     }
 
     public void entryNew() throws ServletException, IOException {
 
+        /*EmployeeView employee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        String attendanceDate = getRequestParam(AttributeConst.ATT_DATE);
+        AttendanceView av = service.findOne(employee, attendanceDate);
+
+        if( av != null) {
         putRequestScope(AttributeConst.TOKEN, getTokenId());
-
-
-        AttendanceView av = new AttendanceView();
         putRequestScope(AttributeConst.ATTENDANCE, av);
-
         forward(ForwardConst.FW_ATT_NEW);
+        } else {*/
 
-    }
+        putRequestScope(AttributeConst.TOKEN, getTokenId());
+        putRequestScope(AttributeConst.ATTENDANCE, new AttendanceView());
+        forward(ForwardConst.FW_ATT_NEW);
+        }
+
 
     public void create() throws ServletException, IOException {
 
@@ -80,44 +82,34 @@ public class AttendanceAction extends ActionBase {
                 null);
 
 
-            putRequestScope(AttributeConst.TOKEN,getTokenId());
-            putRequestScope(AttributeConst.ATTENDANCE, av);
+             service.create(av);
+             putRequestScope(AttributeConst.TOKEN,getTokenId());
+             putRequestScope(AttributeConst.ATTENDANCE, av);
 
-            if(getRequestParam(AttributeConst.ATT_START) != null) {
-                putSessionScope(AttributeConst.FLUSH, MessageConst.I_STARTED.getMessage());
-            } else if(getRequestParam(AttributeConst.ATT_FINISH) != null) {
-                putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
-            }
+             putSessionScope(AttributeConst.FLUSH, MessageConst.I_STARTED.getMessage());
 
-            redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
-        }
+             redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
+         }
+
+
     }
 
-    public void workFinish() throws ServletException, IOException {
+    public void workfin() throws ServletException, IOException {
+
+        EmployeeView employee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        String attendanceDate = getRequestParam(AttributeConst.ATT_DATE);
 
         if(checkToken()) {
 
-         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-         AttendanceView av = new AttendanceView(
-                null,
-                ev,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+            AttendanceView av = service.findOne(employee, attendanceDate);
 
-
+            service.workfin(av);
             putRequestScope(AttributeConst.TOKEN,getTokenId());
             putRequestScope(AttributeConst.ATTENDANCE, av);
 
-            if(getRequestParam(AttributeConst.ATT_START) != null) {
-                putSessionScope(AttributeConst.FLUSH, MessageConst.I_STARTED.getMessage());
-            } else if(getRequestParam(AttributeConst.ATT_FINISH) != null) {
-                putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
-            }
+            putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
+
 
             redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
         }

@@ -61,9 +61,11 @@ public class Application {
 
     @Lob
     @Column(name = JpaConst.APP_COL_CONTENT, nullable = false)
-    private String Content;
+    private String appContent;
 
-    @Column(name = JpaConst.APP_COL_COMMENT, length = 255, nullable = false)
+    @Column(name = JpaConst.APP_COL_COMMENT, length = 255, nullable = true)
     private String comment;
+
+
 
 }

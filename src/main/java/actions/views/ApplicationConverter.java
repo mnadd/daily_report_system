@@ -15,7 +15,7 @@ public class ApplicationConverter {
                 apv.getApplicationDate(),
                 apv.getTypeFlag(),
                 apv.getTime(),
-                apv.getContent(),
+                apv.getAppContent(),
                 apv.getComment());
     }
 
@@ -30,7 +30,7 @@ public class ApplicationConverter {
                 ap.getApplicationDate(),
                 ap.getTypeFlag(),
                 ap.getTime(),
-                ap.getContent(),
+                ap.getAppContent(),
                 ap.getComment());
     }
 
@@ -50,7 +50,7 @@ public class ApplicationConverter {
         ap.setApplicationDate(apv.getApplicationDate());
         ap.setTypeFlag(apv.getTypeFlag());
         ap.setTime(apv.getTime());
-        ap.setContent(apv.getContent());
+        ap.setAppContent(apv.getAppContent());
         ap.setComment(apv.getComment());
     }
 

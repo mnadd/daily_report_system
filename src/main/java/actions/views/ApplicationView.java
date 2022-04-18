@@ -25,7 +25,7 @@ public class ApplicationView {
 
     private Integer time;
 
-    private String Content;
+    private String appContent;
 
     private String comment;
 

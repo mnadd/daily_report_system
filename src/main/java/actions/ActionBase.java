@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -104,6 +105,13 @@ public abstract class ActionBase {
             return LocalDate.now();
         }
         return LocalDate.parse(strDate);
+    }
+
+    protected LocalTime toLocalTime(String strDate) {
+        if (strDate == null || strDate.equals("")) {
+            return LocalTime.now();
+        }
+        return LocalTime.parse(strDate);
     }
 
     protected String getRequestParam(AttributeConst key) {

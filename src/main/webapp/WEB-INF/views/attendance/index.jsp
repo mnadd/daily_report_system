@@ -34,13 +34,13 @@
                 </tr>
                 <c:forEach var="attendance" items="${attendances}" varStatus="status">
                     <fmt:parseDate value="${attendance.attendanceDate}" pattern="yyyy-MM-dd" var="attendanceDate" type="date" />
-                    <fmt:parseDate value="${attendance.start}" pattern="HH:mm:ss" var="start" type="date" />
-                    <fmt:parseDate value="${attendance.finish}" pattern="HH:mm:ss" var="finish" type="date" />
+                    <fmt:parseDate value="${attendance.start}" pattern="HH:mm" var="start" type="date" />
+                    <fmt:parseDate value="${attendance.finish}" pattern="HH:mm" var="finish" type="date" />
 
                     <tr class="row${status.count % 2}">
-                        <td class="attendance_date"><fmt:formatDate value='${attendanceDay}' pattern='yyyy-MM-dd' /></td>
-                        <td class="attendance_start"><fmt:formatDate value='${start}' pattern='HH:mm:ss' /></td>
-                        <td class="attendance_finish"><fmt:formatDate value='${finish}' pattern='HH:mm:ss' /></td>
+                        <td class="attendance_date"><fmt:formatDate value='${attendanceDate}' pattern='MM-dd' /></td>
+                        <td class="attendance_start"><fmt:formatDate value='${start}' pattern='HH:mm' /></td>
+                        <td class="attendance_finish"><fmt:formatDate value='${finish}' pattern='HH:mm' /></td>
                         <td class="attendance_actualtime"></td>
                         <td class="attendance_overtime"></td>
                         <td>
