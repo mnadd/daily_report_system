@@ -11,19 +11,23 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.MessageConst;
 import services.AttendanceService;
+import services.EmployeeService;
 
 public class AttendanceAction extends ActionBase {
 
     private AttendanceService service;
+    private EmployeeService empService;
 
     @Override
     public void process() throws ServletException, IOException {
 
         service = new AttendanceService();
+        empService = new EmployeeService();
 
         invoke();
 
         service.close();
+        empService.close();
     }
 
     public void index() throws ServletException, IOException {
@@ -49,38 +53,38 @@ public class AttendanceAction extends ActionBase {
 
     public void entryNew() throws ServletException, IOException {
 
-        /*EmployeeView employee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+        EmployeeView employee = empService.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
         String attendanceDate = getRequestParam(AttributeConst.ATT_DATE);
-        AttendanceView av = service.findOne(employee, attendanceDate);
+        /*AttendanceView av = service.findOne(employee, attendanceDate);*/
 
-        if( av != null) {
-        putRequestScope(AttributeConst.TOKEN, getTokenId());
-        putRequestScope(AttributeConst.ATTENDANCE, av);
-        forward(ForwardConst.FW_ATT_NEW);
-        } else {*/
+           /* if (av == null) {*/
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.ATTENDANCE, new AttendanceView());
+                forward(ForwardConst.FW_ATT_NEW);
+         /*   } else {
+                putRequestScope(AttributeConst.ATTENDANCE, av);
+                forward(ForwardConst.FW_ATT_NEW);*/
+                System.out.print("---------------------------------------------------------------------------");
+                System.out.print(employee);
+                System.out.print(attendanceDate);
 
-        putRequestScope(AttributeConst.TOKEN, getTokenId());
-        putRequestScope(AttributeConst.ATTENDANCE, new AttendanceView());
-        forward(ForwardConst.FW_ATT_NEW);
-        }
 
-
+    }
     public void create() throws ServletException, IOException {
 
         if(checkToken()) {
 
-         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-         AttendanceView av = new AttendanceView(
-                null,
-                ev,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
+            AttendanceView av = new AttendanceView(
+                   null,
+                   ev,
+                   null,
+                   null,
+                   null,
+                   null,
+                   null,
+                   null);
 
              service.create(av);
              putRequestScope(AttributeConst.TOKEN,getTokenId());
@@ -92,26 +96,34 @@ public class AttendanceAction extends ActionBase {
          }
 
 
+
     }
 
     public void workfin() throws ServletException, IOException {
-
-        EmployeeView employee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-        String attendanceDate = getRequestParam(AttributeConst.ATT_DATE);
-
         if(checkToken()) {
 
-
+            EmployeeView employee = empService.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+            String attendanceDate = getRequestParam(AttributeConst.ATT_DATE);
             AttendanceView av = service.findOne(employee, attendanceDate);
-
             service.workfin(av);
-            putRequestScope(AttributeConst.TOKEN,getTokenId());
-            putRequestScope(AttributeConst.ATTENDANCE, av);
-
-            putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
 
 
-            redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
+                putRequestScope(AttributeConst.ATTENDANCE, av);
+
+                forward(ForwardConst.FW_ATT_NEW);
+
+
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
+
+                redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
+
+            System.out.print("---------------------------------------------------------------------------");
+            System.out.print(employee);
+            System.out.print(attendanceDate);
+
+
         }
-    }
+
+       }
+
 }

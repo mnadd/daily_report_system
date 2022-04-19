@@ -57,9 +57,26 @@ public class ApplicationAction extends ActionBase {
         forward(ForwardConst.FW_APP_NEW);
     }
 
-    public void create() throws ServletException, IOException {
+
+ /*   public void create() throws ServletException, IOException {
+
+        if(checkToken()) {
+
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            LocalDate day = LocalDate.parse(getRequestParam(AttributeConst.APP_DATE));;
+
+            ApplicationView apv = new ApplicationView(
+                    null,
+                    ev,
+                    null,
+                    day,
+                    toNumber(getRequestParam(AttributeConst.APP_TYPE_FLAG)),
+                    getRequestParam(AttributeConst.APP_TIME),
+                    getRequestParam(AttributeConst.APP_CONTENT),
+                    getRequestParam(AttributeConst.APP_CONTENT));
+        }
 
 
-    }
+    }*/
 
 }

@@ -72,8 +72,7 @@ public interface JpaConst {
     String JPQL_PARM_CODE = "code";
     String JPQL_PARM_PASSWORD = "password";
     String JPQL_PARM_EMPLOYEE = "employee";
-    String JPQL_PARM_DATE = "attendanceDate";
-    String JPQL_PARM_EMP = "employee";
+    String JPQL_PARM_DATE = "attendance_date";
 
 
     String Q_EMP_GET_ALL = ENTITY_EMP + ".getAll";
@@ -113,7 +112,7 @@ public interface JpaConst {
     String Q_ATT_COUNT_ALL_MINE_DEF = "SELECT COUNT(a) FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE;
 
     String Q_ATT_GET_BY_EMP_AND_DATE = ENTITY_ATT + ".getByEmpAndDate";
-    String Q_ATT_GET_BY_EMP_AND_DATE_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMP + " AND a.attendanceDate = :" + JPQL_PARM_DATE;
+    String Q_ATT_GET_BY_EMP_AND_DATE_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND a.attendanceDate = :" + JPQL_PARM_DATE;
 
     String Q_APP_GET_ALL = ENTITY_APP + ".getAll";
     String Q_APP_GET_ALL_DEF = "SELECT ap FROM Application AS ap ORDER BY ap.id DESC";

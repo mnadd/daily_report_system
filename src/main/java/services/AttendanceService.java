@@ -12,6 +12,7 @@ import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
 import constants.JpaConst;
 import models.Attendance;
+import models.validators.AttendanceValidator;
 
 
 public class AttendanceService extends ServiceBase {
@@ -39,7 +40,7 @@ public class AttendanceService extends ServiceBase {
         Attendance av = null;
         try {
             av = em.createNamedQuery(JpaConst.Q_ATT_GET_BY_EMP_AND_DATE, Attendance.class)
-                    .setParameter(JpaConst.JPQL_PARM_EMP, employee)
+                    .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                     .setParameter(JpaConst.JPQL_PARM_DATE, attendanceDate)
                     .getSingleResult();
         } catch(NoResultException ex) {
@@ -66,14 +67,17 @@ public class AttendanceService extends ServiceBase {
 
     public List<String> workfin(AttendanceView av) {
 
+        List<String> errors = AttendanceValidator.validate(av);
+
+        if (errors.size() == 0) {
+
         LocalTime lt = LocalTime.now();
         av.setFinish(lt);
         workfinInternal(av);
-        return null;
     }
+        return errors;
 
-
-
+    }
     private Attendance findOneInternal(int id) {
         return em.find(Attendance.class, id);
     }
@@ -93,6 +97,24 @@ public class AttendanceService extends ServiceBase {
         AttendanceConverter.copyViewToModel(a, av);
         em.getTransaction().commit();
     }
+
+    public Boolean validateStart(EmployeeView ev, String attendanceDate) {
+
+        boolean isValidAttendance = false;
+        if (ev != null  && attendanceDate != null && !attendanceDate.equals("")) {
+            AttendanceView av = findOne(ev, attendanceDate);
+
+            if (av != null && av.getId() != null) {
+
+                isValidAttendance = true;
+            }
+        }
+
+        return isValidAttendance;
+    }
+
+
+
 
 
 }
