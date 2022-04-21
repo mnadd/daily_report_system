@@ -1,6 +1,7 @@
 package actions;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -53,23 +54,10 @@ public class AttendanceAction extends ActionBase {
 
     public void entryNew() throws ServletException, IOException {
 
-        EmployeeView employee = empService.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
-        String attendanceDate = getRequestParam(AttributeConst.ATT_DATE);
-        /*AttendanceView av = service.findOne(employee, attendanceDate);*/
-
-           /* if (av == null) {*/
-                putRequestScope(AttributeConst.TOKEN, getTokenId());
-                putRequestScope(AttributeConst.ATTENDANCE, new AttendanceView());
-                forward(ForwardConst.FW_ATT_NEW);
-         /*   } else {
-                putRequestScope(AttributeConst.ATTENDANCE, av);
-                forward(ForwardConst.FW_ATT_NEW);*/
-                System.out.print("---------------------------------------------------------------------------");
-                System.out.print(employee);
-                System.out.print(attendanceDate);
-
-
+        putRequestScope(AttributeConst.TOKEN, getTokenId());
+        forward(ForwardConst.FW_ATT_NEW);
     }
+
     public void create() throws ServletException, IOException {
 
         if(checkToken()) {
@@ -93,37 +81,33 @@ public class AttendanceAction extends ActionBase {
              putSessionScope(AttributeConst.FLUSH, MessageConst.I_STARTED.getMessage());
 
              redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
-         }
-
-
-
+        }
     }
 
     public void workfin() throws ServletException, IOException {
+
         if(checkToken()) {
 
             EmployeeView employee = empService.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
-            String attendanceDate = getRequestParam(AttributeConst.ATT_DATE);
+            LocalDate attendanceDate = (toLocalDate(getRequestParam(AttributeConst.REP_DATE)));
             AttendanceView av = service.findOne(employee, attendanceDate);
-            service.workfin(av);
 
+            List<String> errors = service.workfin(av);
 
+            if (errors.size() > 0) {
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
                 putRequestScope(AttributeConst.ATTENDANCE, av);
+                putRequestScope(AttributeConst.ERR, errors);
 
                 forward(ForwardConst.FW_ATT_NEW);
-
-
+            }else {
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
 
                 redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
 
-            System.out.print("---------------------------------------------------------------------------");
-            System.out.print(employee);
-            System.out.print(attendanceDate);
-
-
+            }
         }
 
-       }
+        }
 
 }

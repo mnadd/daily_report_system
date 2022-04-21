@@ -38,7 +38,7 @@ public interface JpaConst {
 
     String ATT_COL_ID = "id";
     String ATT_COL_EMP = "employee_id";
-    String ATT_COL_ATT_DATE = "attendance_date";
+    String ATT_COL_ATT_DATE = "attendanceDate";
     String ATT_COL_START = "start";
     String ATT_COL_FINISH = "finish";
     String ATT_COL_ACT_TIME = "actual_time";
@@ -72,7 +72,7 @@ public interface JpaConst {
     String JPQL_PARM_CODE = "code";
     String JPQL_PARM_PASSWORD = "password";
     String JPQL_PARM_EMPLOYEE = "employee";
-    String JPQL_PARM_DATE = "attendance_date";
+    String JPQL_PARM_DATE = "attendanceDate";
 
 
     String Q_EMP_GET_ALL = ENTITY_EMP + ".getAll";
@@ -119,6 +119,9 @@ public interface JpaConst {
 
     String Q_APP_GET_COUNT = ENTITY_APP + ".count";
     String Q_APP_GET_COUNT_DEF = "SELECT COUNT(ap) FROM Application AS ap";
+
+    String Q_APP_GET_BY_EMP_AND_ATT = ENTITY_APP + ".getByEmpAndAtt";
+
 
 
 }

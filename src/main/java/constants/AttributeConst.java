@@ -41,7 +41,7 @@ public enum AttributeConst {
     ATTENDANCES("attendances"),
     ATT_COUNT("attendance_count"),
     ATT_ID("id"),
-    ATT_DATE("attendance_date"),
+    ATT_DATE("attendanceDate"),
     ATT_START("start"),
     ATT_FINISH("finish"),
     ATT_PERMIT_FLAG("permit_flag"),

@@ -58,17 +58,18 @@ public class ApplicationAction extends ActionBase {
     }
 
 
- /*   public void create() throws ServletException, IOException {
+   /* public void create() throws ServletException, IOException {
 
         if(checkToken()) {
 
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            AttendanceView av = service.findOne()
             LocalDate day = LocalDate.parse(getRequestParam(AttributeConst.APP_DATE));;
 
             ApplicationView apv = new ApplicationView(
                     null,
                     ev,
-                    null,
+                    av,
                     day,
                     toNumber(getRequestParam(AttributeConst.APP_TYPE_FLAG)),
                     getRequestParam(AttributeConst.APP_TIME),
