@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +36,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Application {
+public class TimecardApplication {
 
     @Id
     @Column(name = JpaConst.APP_COL_ID)
@@ -57,7 +58,7 @@ public class Application {
     private Integer typeFlag;
 
     @Column(name = JpaConst.APP_COL_TIME, nullable = false)
-    private Integer time;
+    private LocalTime time;
 
     @Lob
     @Column(name = JpaConst.APP_COL_CONTENT, nullable = false)
@@ -66,6 +67,7 @@ public class Application {
     @Column(name = JpaConst.APP_COL_COMMENT, length = 255, nullable = true)
     private String comment;
 
-
+    @Column(name = JpaConst.APP_COL_APP_FLAG, nullable = true)
+    private Integer appFlag;
 
 }

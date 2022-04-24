@@ -3,12 +3,12 @@ package actions.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Application;
+import models.TimecardApplication;
 
 public class ApplicationConverter {
 
-    public static Application toModel(ApplicationView apv) {
-        return new Application(
+    public static TimecardApplication toModel(TimecardApplicationView apv) {
+        return new TimecardApplication(
                 apv.getId(),
                 EmployeeConverter.toModel(apv.getEmployee()),
                 AttendanceConverter.toModel(apv.getAttendance()),
@@ -16,14 +16,15 @@ public class ApplicationConverter {
                 apv.getTypeFlag(),
                 apv.getTime(),
                 apv.getAppContent(),
-                apv.getComment());
+                apv.getComment(),
+                apv.getAppFlag());
     }
 
-    public static ApplicationView toView(Application ap) {
+    public static TimecardApplicationView toView(TimecardApplication ap) {
         if(ap == null) {
             return null;
         }
-        return new ApplicationView(
+        return new TimecardApplicationView(
                 ap.getId(),
                 EmployeeConverter.toView(ap.getEmployee()),
                 AttendanceConverter.toView(ap.getAttendance()),
@@ -31,19 +32,20 @@ public class ApplicationConverter {
                 ap.getTypeFlag(),
                 ap.getTime(),
                 ap.getAppContent(),
-                ap.getComment());
+                ap.getComment(),
+                ap.getAppFlag());
     }
 
-    public static List<ApplicationView> toViewList(List<Application> list) {
-        List<ApplicationView> evs = new ArrayList<>();
+    public static List<TimecardApplicationView> toViewList(List<TimecardApplication> list) {
+        List<TimecardApplicationView> evs = new ArrayList<>();
 
-        for(Application ap : list) {
+        for(TimecardApplication ap : list) {
             evs.add(toView(ap));
         }
         return evs;
     }
 
-    public static void copyViewToModel(Application ap, ApplicationView apv) {
+    public static void copyViewToModel(TimecardApplication ap, TimecardApplicationView apv) {
         ap.setId(apv.getId());
         ap.setEmployee(EmployeeConverter.toModel(apv.getEmployee()));
         ap.setAttendance(AttendanceConverter.toModel(apv.getAttendance()));
@@ -52,6 +54,7 @@ public class ApplicationConverter {
         ap.setTime(apv.getTime());
         ap.setAppContent(apv.getAppContent());
         ap.setComment(apv.getComment());
+        ap.setAppFlag(apv.getAppFlag());
     }
 
 }

@@ -1,6 +1,7 @@
 package actions.views;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplicationView {
+public class TimecardApplicationView {
 
     private Integer id;
 
@@ -23,10 +24,12 @@ public class ApplicationView {
 
     private Integer typeFlag;
 
-    private Integer time;
+    private LocalTime time;
 
     private String appContent;
 
     private String comment;
+
+    private Integer appFlag;
 
 }

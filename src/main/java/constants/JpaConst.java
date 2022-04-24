@@ -58,15 +58,18 @@ public interface JpaConst {
     String APP_COL_TIME = "time";
     String APP_COL_CONTENT = "appContent";
     String APP_COL_COMMENT = "comment";
+    String APP_COL_APP_FLAG = "appFlag";
 
     int TYPE_START = 1;
     int TYPE_FINISH = 0;
+    int APPROVE_TRUE = 1;
+    int APPROVE_FALSE = 0;
 
 
     String ENTITY_EMP = "employee";
     String ENTITY_REP = "report";
     String ENTITY_ATT = "attendance";
-    String ENTITY_APP = "application";
+    String ENTITY_APP = "timecardApplication";
 
 
     String JPQL_PARM_CODE = "code";
@@ -115,10 +118,10 @@ public interface JpaConst {
     String Q_ATT_GET_BY_EMP_AND_DATE_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND a.attendanceDate = :" + JPQL_PARM_DATE;
 
     String Q_APP_GET_ALL = ENTITY_APP + ".getAll";
-    String Q_APP_GET_ALL_DEF = "SELECT ap FROM Application AS ap ORDER BY ap.id DESC";
+    String Q_APP_GET_ALL_DEF = "SELECT ap FROM TimecardApplication AS ap ORDER BY ap.id DESC";
 
     String Q_APP_GET_COUNT = ENTITY_APP + ".count";
-    String Q_APP_GET_COUNT_DEF = "SELECT COUNT(ap) FROM Application AS ap";
+    String Q_APP_GET_COUNT_DEF = "SELECT COUNT(ap) FROM TimecardApplication AS ap";
 
     String Q_APP_GET_BY_EMP_AND_ATT = ENTITY_APP + ".getByEmpAndAtt";
 

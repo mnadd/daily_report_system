@@ -18,7 +18,9 @@ public enum MessageConst {
     E_EMP_CODE_EXIST("入力された社員番号の情報は既に存在しています。"),
     E_NOTITLE("タイトルを入力してください。"),
     E_NOCONTENT("内容を入力してください。"),
-    E_START("出勤が押されていません。");
+    E_START("出勤が押されていません。"),
+    E_FINISH("退勤が押されていません。"),
+    E_NONTIME("時間を入力していません");
 
 
     private final String text;

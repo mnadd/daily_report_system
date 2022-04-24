@@ -87,10 +87,10 @@ public class AttendanceAction extends ActionBase {
     public void workfin() throws ServletException, IOException {
 
         if(checkToken()) {
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            LocalDate attendanceDate = (toLocalDate(getRequestParam(AttributeConst.ATT_DATE)));
+            AttendanceView av = service.findOne(ev, attendanceDate);
 
-            EmployeeView employee = empService.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
-            LocalDate attendanceDate = (toLocalDate(getRequestParam(AttributeConst.REP_DATE)));
-            AttendanceView av = service.findOne(employee, attendanceDate);
 
             List<String> errors = service.workfin(av);
 
@@ -98,6 +98,7 @@ public class AttendanceAction extends ActionBase {
                 putRequestScope(AttributeConst.TOKEN, getTokenId());
                 putRequestScope(AttributeConst.ATTENDANCE, av);
                 putRequestScope(AttributeConst.ERR, errors);
+                putSessionScope(AttributeConst.FLUSH, MessageConst.E_START.getMessage());
 
                 forward(ForwardConst.FW_ATT_NEW);
             }else {

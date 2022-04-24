@@ -10,7 +10,7 @@
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>申請　ページ</h2>
+        <h2>タイムカード修正申請　ページ</h2>
 
         <form method="POST" action="<c:url value='?action=${action}&command=${commCrt}' />">
             <c:if test="${errors != null}">
@@ -24,8 +24,8 @@
 
 <label for="${AttributeConst.APP_TYPE_FLAG.getValue()}">申請内容</label><br />
 <select name="${AttributeConst.APP_TYPE_FLG.getValue()}">
-    <option value="${AttributeConst.TYPE_START.getIntegerValue()}"<c:if test="${application.typeFlag == AttributeConst.TYPE_START.getIntegerValue()}"> selected</c:if>>出勤</option>
-    <option value="${AttributeConst.TYPE_FINISH.getIntegerValue()}"<c:if test="${application.typeFlag == AttributeConst.TYPE_FINISH.getIntegerValue()}"> selected</c:if>>退勤</option>
+    <option value="${AttributeConst.TYPE_START.getIntegerValue()}"<c:if test="${timecardApplication.typeFlag == AttributeConst.TYPE_START.getIntegerValue()}"> selected</c:if>>出勤</option>
+    <option value="${AttributeConst.TYPE_FINISH.getIntegerValue()}"<c:if test="${timecardApplication.typeFlag == AttributeConst.TYPE_FINISH.getIntegerValue()}"> selected</c:if>>退勤</option>
 </select>
 
 <br /><br />
@@ -34,20 +34,21 @@
 <c:out value="${sessionScope.login_employee.name}" />
 <br /><br />
 
-<fmt:parseDate value="${application.applicationDate}" pattern="yyyy-MM-dd" var="applicationDay" type="date" />
+<fmt:parseDate value="${timecardApplication.applicationDate}" pattern="yyyy-MM-dd" var="applicationDay" type="date" />
 <label for="${AttributeConst.APP_DATE.getValue()}">日付</label><br />
 <input type="date" name="${AttributeConst.APP_DATE.getValue()}" value="<fmt:formatDate value='${applicationDay}' pattern='yyyy-MM-dd' />" />
 <br /><br />
 
 <label for="${AttributeConst.APP_TIME.getValue()}">時間</label><br />
-<input type="time" name="${AttributeConst.APP_TIME.getValue()}">
+<input type="time" name="${AttributeConst.APP_TIME.getLocalTimeValue()}">
 <br /><br />
 
 <label for="${AttributeConst.APP_CONTENT.getValue()}">申請理由</label><br />
-<textarea name="${AttributeConst.APP_CONTENT.getValue()}" rows="10" cols="50">${application.appContent}</textarea>
+<textarea name="${AttributeConst.APP_CONTENT.getValue()}" rows="10" cols="50">${timecardApplication.appContent}</textarea>
 <br /><br />
 
-<input type="hidden" name="${AttributeConst.APP_ID.getValue()}" value="${application.id}" />
+<input type="hidden" name="${AttributeConst.APPROVE_FALSE.getIntegerValue()}" value="${timecardApplication.appFlag}" />
+<input type="hidden" name="${AttributeConst.APP_ID.getValue()}" value="${timecardApplication.id}" />
 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 <button type="submit">申請</button>
 

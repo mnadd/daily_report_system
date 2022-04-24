@@ -49,8 +49,8 @@ public enum AttributeConst {
     PERMIT_TRUE(1),
     PERMIT_FALSE(0),
 
-    APPLICATION("application"),
-    APPLICATIONS("applications"),
+    APPLICATION("timecardApplication"),
+    APPLICATIONS("timecardApplications"),
     APP_COUNT("application_count"),
     APP_ID("id"),
     APP_DATE("application_date"),
@@ -58,9 +58,12 @@ public enum AttributeConst {
     APP_TIME("time"),
     APP_CONTENT("appContent"),
     APP_COMMENT("comment"),
+    APP_FLAG("appFlag"),
 
     TYPE_START(1),
-    TYPE_FINISH(0);
+    TYPE_FINISH(0),
+    APPROVE_TRUE(1),
+    APPROVE_FALSE(0);
 
     private final String text;
     private final Integer i;

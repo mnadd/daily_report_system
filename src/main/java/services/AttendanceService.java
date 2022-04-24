@@ -90,7 +90,7 @@ public class AttendanceService extends ServiceBase {
         em.getTransaction().begin();
         Attendance a = findOneInternal(av.getId());
         AttendanceConverter.copyViewToModel(a, av);
-        em.persist(AttendanceConverter.toModel(av));
+
         em.getTransaction().commit();
     }
 
