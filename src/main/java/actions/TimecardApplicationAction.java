@@ -14,18 +14,18 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
-import services.ApplicationService;
 import services.AttendanceService;
+import services.TimecardApplicationService;
 
-public class ApplicationAction extends ActionBase {
+public class TimecardApplicationAction extends ActionBase {
 
-    private ApplicationService service;
+    private TimecardApplicationService service;
     private AttendanceService attservice;
 
     @Override
     public void process() throws ServletException, IOException {
 
-        service = new ApplicationService();
+        service = new TimecardApplicationService();
         attservice = new AttendanceService();
 
         invoke();
@@ -36,12 +36,12 @@ public class ApplicationAction extends ActionBase {
     public void index() throws ServletException, IOException {
 
         int page = getPage();
-        List<TimecardApplicationView> applications = service.getPerPage(page);
+        List<TimecardApplicationView> timecardApplications = service.getPerPage(page);
 
-        long applicationsCount = service.countAll();
+        long timecardApplicationsCount = service.countAll();
 
-        putRequestScope(AttributeConst.APPLICATIONS, applications);
-        putRequestScope(AttributeConst.APP_COUNT, applicationsCount);
+        putRequestScope(AttributeConst.APPLICATIONS, timecardApplications);
+        putRequestScope(AttributeConst.APP_COUNT, timecardApplicationsCount);
         putRequestScope(AttributeConst.PAGE, page);
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
 
@@ -59,7 +59,7 @@ public class ApplicationAction extends ActionBase {
         putRequestScope(AttributeConst.TOKEN, getTokenId());
 
         TimecardApplicationView apv = new TimecardApplicationView();
-        apv.setApplicationDate(LocalDate.now());
+        apv.setTimecardApplicationDate(LocalDate.now());
         putRequestScope(AttributeConst.APPLICATION, apv);
 
         forward(ForwardConst.FW_APP_NEW);
@@ -69,11 +69,13 @@ public class ApplicationAction extends ActionBase {
     public void create() throws ServletException, IOException {
 
         if(checkToken()) {
+            LocalDate day = null;
+            LocalTime time = null;
 
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
-            LocalDate day = LocalDate.parse(getRequestParam(AttributeConst.APP_DATE));
+            day =  LocalDate.parse(getRequestParam(AttributeConst.APP_DATE));
             AttendanceView av = attservice.findOne(ev, day);
-            LocalTime time = LocalTime.parse(getRequestParam(AttributeConst.APP_TIME));
+            time =  LocalTime.parse(getRequestParam(AttributeConst.APP_TIME));
 
             TimecardApplicationView apv = new TimecardApplicationView(
                     null,
@@ -83,10 +85,10 @@ public class ApplicationAction extends ActionBase {
                     toNumber(getRequestParam(AttributeConst.APP_TYPE_FLAG)),
                     time,
                     getRequestParam(AttributeConst.APP_CONTENT),
-                    getRequestParam(AttributeConst.APP_COMMENT),
-                    toNumber(getRequestParam(AttributeConst.APP_FLAG)));
+                    null,
+                    toNumber(getRequestParam(AttributeConst.APP_APPROVE)));
 
-            List<String> errors = service.create(apv);
+           List<String> errors = service.create(apv);
 
             if(errors.size() > 0) {
                 putRequestScope(AttributeConst.TOKEN, getTokenId());

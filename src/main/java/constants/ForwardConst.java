@@ -8,7 +8,7 @@ public enum ForwardConst {
     ACT_REP("Report"),
     ACT_AUTH("Auth"),
     ACT_ATT("Attendance"),
-    ACT_APP("Application"),
+    ACT_APP("TimecardApplication"),
 
     CMD("command"),
     CMD_NONE(""),
@@ -39,8 +39,8 @@ public enum ForwardConst {
     FW_ATT_INDEX("attendance/index"),
     FW_ATT_NEW("attendance/new"),
 
-    FW_APP_INDEX("application/index"),
-    FW_APP_NEW("application/new");
+    FW_APP_INDEX("timecardApplication/index"),
+    FW_APP_NEW("timecardApplication/new");
 
     private final String text;
 

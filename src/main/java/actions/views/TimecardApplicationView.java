@@ -20,7 +20,7 @@ public class TimecardApplicationView {
 
     private AttendanceView attendance;
 
-    private LocalDate applicationDate;
+    private LocalDate timecardApplicationDate;
 
     private Integer typeFlag;
 
@@ -30,6 +30,6 @@ public class TimecardApplicationView {
 
     private String comment;
 
-    private Integer appFlag;
+    private Integer appApprove;
 
 }

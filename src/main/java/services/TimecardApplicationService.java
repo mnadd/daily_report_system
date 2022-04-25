@@ -2,21 +2,21 @@ package services;
 
 import java.util.List;
 
-import actions.views.ApplicationConverter;
+import actions.views.TimecardApplicationConverter;
 import actions.views.TimecardApplicationView;
 import constants.JpaConst;
 import models.TimecardApplication;
-import models.validators.ApplicationValidator;
+import models.validators.TimecardApplicationValidator;
 
-public class ApplicationService extends ServiceBase {
+public class TimecardApplicationService extends ServiceBase {
 
     public List<TimecardApplicationView> getPerPage(int page) {
-        List<TimecardApplication> applications = em.createNamedQuery(JpaConst.Q_APP_GET_ALL, TimecardApplication.class)
+        List<TimecardApplication> timecardApplications = em.createNamedQuery(JpaConst.Q_APP_GET_ALL, TimecardApplication.class)
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
 
-        return ApplicationConverter.toViewList(applications);
+        return TimecardApplicationConverter.toViewList(timecardApplications);
     }
 
     public long countAll() {
@@ -27,11 +27,11 @@ public class ApplicationService extends ServiceBase {
     }
 
     public TimecardApplicationView findOne(int id) {
-        return ApplicationConverter.toView(findOneInternal(id));
+        return TimecardApplicationConverter.toView(findOneInternal(id));
     }
 
     public List<String> create(TimecardApplicationView apv) {
-        List<String> errors = ApplicationValidator.validate(apv);
+        List<String> errors = TimecardApplicationValidator.validate(apv);
         if (errors.size() == 0) {
             createInternal(apv);
         }
@@ -45,7 +45,7 @@ public class ApplicationService extends ServiceBase {
     private void createInternal(TimecardApplicationView apv) {
 
         em.getTransaction().begin();
-        em.persist(ApplicationConverter.toModel(apv));
+        em.persist(TimecardApplicationConverter.toModel(apv));
         em.getTransaction().commit();
 
     }

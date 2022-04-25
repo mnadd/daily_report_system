@@ -52,9 +52,9 @@ public class TimecardApplication {
     private Attendance attendance;
 
     @Column(name = JpaConst.APP_COL_APP_DATE, nullable = false)
-    private LocalDate applicationDate;
+    private LocalDate timecardApplicationDate;
 
-    @Column(name = JpaConst.APP_COL_TYPE_FLAG, nullable = false)
+    @Column(name = JpaConst.APP_COL_APP_TYPE_FLAG, nullable = false)
     private Integer typeFlag;
 
     @Column(name = JpaConst.APP_COL_TIME, nullable = false)
@@ -67,7 +67,7 @@ public class TimecardApplication {
     @Column(name = JpaConst.APP_COL_COMMENT, length = 255, nullable = true)
     private String comment;
 
-    @Column(name = JpaConst.APP_COL_APP_FLAG, nullable = true)
-    private Integer appFlag;
+    @Column(name = JpaConst.APP_COL_APP_APPROVE, nullable = true)
+    private Integer appApprove;
 
 }

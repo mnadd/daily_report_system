@@ -48,17 +48,17 @@ public interface JpaConst {
     int PERMIT_TRUE = 1;
     int PERMIT_FALSE = 0;
 
-    String TABLE_APP = "applications";
+    String TABLE_APP = "timecardApplications";
 
     String APP_COL_ID = "id";
     String APP_COL_EMP = "employee_id";
     String APP_COL_ATT = "attendance_id";
-    String APP_COL_APP_DATE = "application_date";
-    String APP_COL_TYPE_FLAG = "type_flag";
+    String APP_COL_APP_DATE = "timecardApplication_date";
+    String APP_COL_APP_TYPE_FLAG = "type_flag";
     String APP_COL_TIME = "time";
     String APP_COL_CONTENT = "appContent";
     String APP_COL_COMMENT = "comment";
-    String APP_COL_APP_FLAG = "appFlag";
+    String APP_COL_APP_APPROVE = "appApprove";
 
     int TYPE_START = 1;
     int TYPE_FINISH = 0;
