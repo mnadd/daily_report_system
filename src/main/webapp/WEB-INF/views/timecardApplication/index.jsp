@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actAPP" value="${ForwardConst.ACT_APP.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
@@ -19,25 +20,22 @@
                 <tr>
                     <th class="timecardApplication_code">社員番号</th>
                     <th class="timecardApplication_name">氏名</th>
-                    <th class="timecardApplication_date">日付</th>
                     <th class="timecardApplication_action">操作</th>
                 </tr>
                 <c:forEach var="timecardApplication" items="${timecardApplications}" varStatus="status">
-                    <fmt:parseDate value="${timecardApplication.timecardApplicationDate}" pattern="yyyy-MM-dd" var="timecardApplicationDay" type="date" />
 
                     <tr class="row${status.count % 2}">
                         <td class="timecardApplication_code"><c:out value="${timecardApplication.employee.code}" /></td>
                         <td class="timecardApplication_name"><c:out value="${timecardApplication.employee.name}" /></td>
-                        <td class="timecardApplication_date"><fmt:formatDate value='${timecardApplicationtDay}' pattern='yyyy-MM-dd' /></td>
                         <td class="timecardApplication_action">
-                            <%--<c:choose>
-                                <c:when test="${application.permitFlag == AttributeConst.PERMIT_FLAG_TRUE.getIntegerValue()}">
-                                    （済）
+                            <c:choose>
+                                <c:when test="${timecardApplication.appApprove == AttributeConst.APPROVE_TRUE.getIntegerValue()}">
+                                    （承認済）
                                 </c:when>
-                                <c:otherwise>  --%>
+                                <c:otherwise>
                                     <a href="<c:url value='?action=${actAPP}&command=${commShow}&id=${timecardApplication.id}' />">詳細を見る</a>
-                                <%--</c:otherwise>
-                            </c:choose> --%>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>
@@ -45,8 +43,8 @@
         </table>
 
         <div id="pagination">
-            (全 ${timecardApplications_count} 件) <br />
-            <c:forEach var="i" begin="1" end="${((timecardApplications_count - 1) / maxRow) + 1}" step="1">
+            (全 ${appCount} 件) <br />
+            <c:forEach var="i" begin="1" end="${((appCount - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
                         <c:out value="${i}" />&nbsp;

@@ -11,6 +11,7 @@ public enum MessageConst {
     I_DELETED("削除が完了しました。"),
     I_STARTED("出勤しました。"),
     I_FINISHED("退勤しました。"),
+    I_APPROVED("承認しました。"),
 
     E_NONAME("氏名を入力してください。"),
     E_NOPASSWORD("パスワードを入力してください。"),

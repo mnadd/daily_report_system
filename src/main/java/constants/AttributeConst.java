@@ -51,7 +51,7 @@ public enum AttributeConst {
 
     APPLICATION("timecardApplication"),
     APPLICATIONS("timecardApplications"),
-    APP_COUNT("timecardApplication_count"),
+    APP_COUNT("appCount"),
     APP_ID("id"),
     APP_DATE("timecardApplication_date"),
     APP_TYPE_FLAG("type_flag"),

@@ -38,6 +38,14 @@ public class TimecardApplicationService extends ServiceBase {
         return errors;
     }
 
+    public void approve(Integer id) {
+
+       TimecardApplicationView savedApp = findOne(id);
+
+        savedApp.setAppApprove(JpaConst.APPROVE_TRUE);
+        approveInternal(savedApp);
+    }
+
     private TimecardApplication findOneInternal(int id) {
         return em.find(TimecardApplication.class, id);
     }
@@ -46,6 +54,15 @@ public class TimecardApplicationService extends ServiceBase {
 
         em.getTransaction().begin();
         em.persist(TimecardApplicationConverter.toModel(apv));
+        em.getTransaction().commit();
+
+    }
+
+    private void approveInternal(TimecardApplicationView apv) {
+
+        em.getTransaction().begin();
+        TimecardApplication ap = findOneInternal(apv.getId());
+        TimecardApplicationConverter.copyViewToModel(ap, apv);
         em.getTransaction().commit();
 
     }

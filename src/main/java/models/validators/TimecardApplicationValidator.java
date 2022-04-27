@@ -1,5 +1,6 @@
 package models.validators;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +17,10 @@ public class TimecardApplicationValidator {
             errors.add(contentError);
         }
 
-        /*String timeError = validateTime(apv.getTime());
+        String timeError = validateTime(apv.getTime());
         if(!timeError.equals("")) {
             errors.add(timeError);
-        }*/
+        }
     return errors;
     }
 
@@ -32,10 +33,10 @@ public class TimecardApplicationValidator {
         }
         return "";
     }
- /*   private static String validateTime(LocalTime time) {
-        if(time == null || time.equals("")) {
+    private static String validateTime(LocalTime time) {
+        if(time == null) {
             return MessageConst.E_NONTIME.getMessage();
         }
         return "";
-    }*/
+    }
 }

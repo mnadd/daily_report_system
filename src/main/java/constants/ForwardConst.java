@@ -23,6 +23,7 @@ public enum ForwardConst {
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
     CMD_WORKFIN("workfin"),
+    CMD_APPROVE("approve"),
 
     FW_ERR_UNKNOWN("error/unknown"),
     FW_TOP_INDEX("topPage/index"),
@@ -40,7 +41,8 @@ public enum ForwardConst {
     FW_ATT_NEW("attendance/new"),
 
     FW_APP_INDEX("timecardApplication/index"),
-    FW_APP_NEW("timecardApplication/new");
+    FW_APP_NEW("timecardApplication/new"),
+    FW_APP_SHOW("timecardApplication/show");
 
     private final String text;
 

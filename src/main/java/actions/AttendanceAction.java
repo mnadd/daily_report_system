@@ -105,10 +105,8 @@ public class AttendanceAction extends ActionBase {
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
 
                 redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
-
             }
         }
-
         }
 
 }

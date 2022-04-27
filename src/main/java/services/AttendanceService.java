@@ -38,7 +38,7 @@ public class AttendanceService extends ServiceBase {
 
             Attendance av = em.createNamedQuery(JpaConst.Q_ATT_GET_BY_EMP_AND_DATE, Attendance.class)
                     .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
-                    .setParameter(JpaConst.JPQL_PARM_DATE, LocalDate.now())
+                    .setParameter(JpaConst.JPQL_PARM_DATE, attendanceDate)
                     .getSingleResult();
             return AttendanceConverter.toView(av);
     }
@@ -73,6 +73,19 @@ public class AttendanceService extends ServiceBase {
         return errors;
 
     }
+
+    public List<String> update(AttendanceView av) {
+
+        List<String> errors = AttendanceValidator.validate(av);
+
+        if (errors.size() == 0) {
+
+        workfinInternal(av);
+    }
+        return errors;
+
+    }
+
     private Attendance findOneInternal(int id) {
         return em.find(Attendance.class, id);
     }
@@ -85,12 +98,11 @@ public class AttendanceService extends ServiceBase {
 
     }
 
-    private void workfinInternal(AttendanceView av) {
+    public void workfinInternal(AttendanceView av) {
 
         em.getTransaction().begin();
         Attendance a = findOneInternal(av.getId());
         AttendanceConverter.copyViewToModel(a, av);
-
         em.getTransaction().commit();
     }
 
