@@ -114,6 +114,9 @@ public interface JpaConst {
     String Q_ATT_COUNT_ALL_MINE = ENTITY_ATT + ".countAllMine";
     String Q_ATT_COUNT_ALL_MINE_DEF = "SELECT COUNT(a) FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE;
 
+    String Q_ATT_COUNT_MONTH = ENTITY_ATT + ".countMonth";
+    String Q_ATT_COUNT_MONTH_DEF =" SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND MONTH(a.attendanceDate = :" + JPQL_PARM_DATE + ") = MONTH(CURRENT_DATE()) AND YEAR(a.attendanceDate = :" + JPQL_PARM_DATE + ") = YEAR(CURRENT_DATE()) ORDER BY a.id";
+
     String Q_ATT_GET_BY_EMP_AND_DATE = ENTITY_ATT + ".getByEmpAndDate";
     String Q_ATT_GET_BY_EMP_AND_DATE_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND a.attendanceDate = :" + JPQL_PARM_DATE;
 
@@ -123,7 +126,12 @@ public interface JpaConst {
     String Q_APP_GET_COUNT = ENTITY_APP + ".count";
     String Q_APP_GET_COUNT_DEF = "SELECT COUNT(ap) FROM TimecardApplication AS ap";
 
-    String Q_APP_GET_BY_EMP_AND_ATT = ENTITY_APP + ".getByEmpAndAtt";
+    String Q_APP_GET_ALL_MINE = ENTITY_APP + ".getAllMine";
+    String Q_APP_GET_ALL_MINE_DEF =  "SELECT ap FROM TimecardApplication AS ap WHERE ap.employee = :" + JPQL_PARM_EMPLOYEE + " ORDER BY ap.id DESC";
+
+    String Q_APP_COUNT_ALL_MINE = ENTITY_APP + ".countAllMine";
+    String Q_APP_COUNT_ALL_MINE_DEF = "SELECT COUNT(ap) FROM TimecardApplication AS ap WHERE ap.employee = :" + JPQL_PARM_EMPLOYEE;
+
 
 
 

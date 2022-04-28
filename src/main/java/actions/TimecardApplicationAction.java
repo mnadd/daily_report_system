@@ -58,6 +58,29 @@ public class TimecardApplicationAction extends ActionBase {
         forward(ForwardConst.FW_APP_INDEX);
     }
 
+    public void appIndex() throws ServletException, IOException {
+
+        EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+        int page = getPage();
+        List<TimecardApplicationView> TimecardApplications = service.getMinePerPage(loginEmployee, page);
+
+        long myTimecardApplicationsCount = service.countAllMine(loginEmployee);
+
+        putRequestScope(AttributeConst.APPLICATIONS,TimecardApplications);
+        putRequestScope(AttributeConst.APP_COUNT, myTimecardApplicationsCount);
+        putRequestScope(AttributeConst.PAGE, page);
+        putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
+
+        String flush = getSessionScope(AttributeConst.FLUSH);
+        if(flush != null) {
+            putRequestScope(AttributeConst.FLUSH, flush);
+            removeSessionScope(AttributeConst.FLUSH);
+        }
+        forward(ForwardConst.FW_APP_APPINDEX);
+
+}
+
     public void entryNew() throws ServletException, IOException {
 
         putRequestScope(AttributeConst.TOKEN, getTokenId());
@@ -116,6 +139,51 @@ public class TimecardApplicationAction extends ActionBase {
             putRequestScope(AttributeConst.APPLICATION, apv);
             forward(ForwardConst.FW_APP_SHOW);
     }
+        String flushError = getSessionScope(AttributeConst.FLUSHERROR);
+        if(flushError != null) {
+            putRequestScope(AttributeConst.FLUSHERROR, flushError);
+            removeSessionScope(AttributeConst.FLUSHERROR);
+        }
+    }
+
+    public void edit() throws ServletException, IOException {
+        TimecardApplicationView apv = service.findOne(toNumber(getRequestParam(AttributeConst.APP_ID)));
+        EmployeeView ev =(EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+        if(apv == null || ev.getId() != apv.getEmployee().getId()) {
+            forward(ForwardConst.FW_ERR_UNKNOWN);
+        } else {
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            putRequestScope(AttributeConst.APPLICATION, apv);
+
+            forward(ForwardConst.FW_APP_EDIT);
+        }
+
+
+    }
+
+    public void update() throws ServletException, IOException {
+        if(checkToken()) {
+            TimecardApplicationView apv = service.findOne(toNumber(getRequestParam(AttributeConst.APP_ID)));
+
+            apv.setTimecardApplicationDate(toLocalDate(getRequestParam(AttributeConst.APP_DATE)));
+            apv.setTypeFlag(toNumber(getRequestParam(AttributeConst.APP_TYPE_FLAG)));
+            apv.setTime(toLocalTime(getRequestParam(AttributeConst.APP_TIME)));
+            apv.setAppContent(getRequestParam(AttributeConst.APP_CONTENT));
+
+            List<String> errors = service.update(apv);
+
+            if(errors.size() > 0) {
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.APPLICATION, apv);
+                putRequestScope(AttributeConst.ERR, errors);
+
+                forward(ForwardConst.FW_APP_EDIT);
+            }else {
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+                redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
+            }
+        }
     }
 
     public void approve() throws ServletException, IOException {
@@ -140,6 +208,31 @@ public class TimecardApplicationAction extends ActionBase {
             redirect(ForwardConst.ACT_APP, ForwardConst.CMD_INDEX);
 
     }
+
+
+    public void approveFalse() throws ServletException, IOException {
+
+            TimecardApplicationView apv = service.findOne(toNumber(getRequestParam(AttributeConst.APP_ID)));
+            apv.setComment(getRequestParam(AttributeConst.APP_COMMENT));
+
+            List<String> errors = service.approveFalse(apv);
+
+            if(errors.size() > 0) {
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.APPLICATION, apv);
+                putRequestScope(AttributeConst.ERR, errors);
+                putSessionScope(AttributeConst.FLUSHERROR, MessageConst.E_COMMENT.getMessage());
+
+                forward(ForwardConst.FW_APP_SHOW);
+            }else {
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_APPROVEFALSE.getMessage());
+                redirect(ForwardConst.ACT_APP, ForwardConst.CMD_INDEX);
+            }
+        }
 }
+
+
+
+
 
 

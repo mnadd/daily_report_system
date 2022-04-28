@@ -8,9 +8,11 @@
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
 <c:set var="actAuth" value="${ForwardConst.ACT_AUTH.getValue()}" />
 <c:set var="actAtt" value="${ForwardConst.ACT_ATT.getValue()}" />
+<c:set var="actApp" value="${ForwardConst.ACT_APP.getValue()}" />
 
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commOut" value="${ForwardConst.CMD_LOGOUT.getValue()}" />
+<c:set var="commAppIdx" value="${ForwardConst.CMD_APPINDEX.getValue()}" />
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -31,6 +33,7 @@
                     </c:if>
                     <a href="<c:url value='?action=${actRep}&command=${commIdx}' />">日報管理</a>&nbsp;
                     <a href="<c:url value='?action=${actAtt}&command=${commIdx}' />">勤怠一覧</a>&nbsp;
+                    <a href="<c:url value='?action=${actApp}&command=${commAppIdx}' />">自分の申請</a>&nbsp;
                 </c:if>
 
             </div>

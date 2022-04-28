@@ -24,7 +24,15 @@ public class TimecardApplicationValidator {
     return errors;
     }
 
+    public static List<String> validateComm(TimecardApplicationView apv) {
+        List<String> errors = new ArrayList<String>();
 
+        String commentError = validateComment(apv.getComment());
+        if (!commentError.equals("")) {
+            errors.add(commentError);
+        }
+        return errors;
+    }
 
 
     private static String validateContent(String appContent) {
@@ -36,6 +44,12 @@ public class TimecardApplicationValidator {
     private static String validateTime(LocalTime time) {
         if(time == null) {
             return MessageConst.E_NONTIME.getMessage();
+        }
+        return "";
+    }
+    private static String validateComment(String comment) {
+        if (comment == null || comment.equals("")) {
+            return MessageConst.E_NOCONTENT.getMessage();
         }
         return "";
     }

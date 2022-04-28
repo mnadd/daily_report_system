@@ -3,6 +3,7 @@ package constants;
 public enum AttributeConst {
 
     FLUSH("flush"),
+    FLUSHERROR("flushError"),
 
     MAX_ROW("maxRow"),
     PAGE("page"),

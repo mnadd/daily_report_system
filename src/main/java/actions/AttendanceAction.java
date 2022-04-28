@@ -49,6 +49,12 @@ public class AttendanceAction extends ActionBase {
             putRequestScope(AttributeConst.FLUSH, flush);
             removeSessionScope(AttributeConst.FLUSH);
         }
+        String flushError = getSessionScope(AttributeConst.FLUSHERROR);
+        if(flushError != null) {
+            putRequestScope(AttributeConst.FLUSHERROR, flushError);
+            removeSessionScope(AttributeConst.FLUSHERROR);
+        }
+
         forward(ForwardConst.FW_ATT_INDEX);
     }
 
@@ -60,52 +66,53 @@ public class AttendanceAction extends ActionBase {
 
     public void create() throws ServletException, IOException {
 
-        if(checkToken()) {
-
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            LocalDate day = (toLocalDate(getRequestParam(AttributeConst.ATT_DATE)));
+            boolean isValidStart = service.validateStart(ev, day);
+            if(isValidStart) {
+                putSessionScope(AttributeConst.FLUSHERROR, MessageConst.E_START.getMessage());
+                redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
+        } else {
 
-            AttendanceView av = new AttendanceView(
-                   null,
-                   ev,
-                   null,
-                   null,
-                   null,
-                   null,
-                   null,
-                   null);
+            if(checkToken()) {
+                AttendanceView av = new AttendanceView(
+                       null,
+                       ev,
+                       null,
+                       null,
+                       null,
+                       null,
+                       null,
+                       null);
 
-             service.create(av);
-             putRequestScope(AttributeConst.TOKEN,getTokenId());
-             putRequestScope(AttributeConst.ATTENDANCE, av);
+                 service.create(av);
+                 putRequestScope(AttributeConst.TOKEN,getTokenId());
+                 putRequestScope(AttributeConst.ATTENDANCE, av);
 
-             putSessionScope(AttributeConst.FLUSH, MessageConst.I_STARTED.getMessage());
+                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_STARTED.getMessage());
 
-             redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
+                 redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
+                }
         }
+
     }
 
     public void workfin() throws ServletException, IOException {
 
-        if(checkToken()) {
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
             LocalDate attendanceDate = (toLocalDate(getRequestParam(AttributeConst.ATT_DATE)));
+            boolean isValidStart = service.validateStart(ev,  attendanceDate);
             AttendanceView av = service.findOne(ev, attendanceDate);
+            if(isValidStart && av.getFinish() == null) {
+                if(checkToken()) {
 
-
-            List<String> errors = service.workfin(av);
-
-            if (errors.size() > 0) {
-                putRequestScope(AttributeConst.TOKEN, getTokenId());
-                putRequestScope(AttributeConst.ATTENDANCE, av);
-                putRequestScope(AttributeConst.ERR, errors);
-                putSessionScope(AttributeConst.FLUSH, MessageConst.E_START.getMessage());
-
-                forward(ForwardConst.FW_ATT_NEW);
-            }else {
+            service.workfin(av);
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_FINISHED.getMessage());
-
                 redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
             }
+        } else {
+            putSessionScope(AttributeConst.FLUSHERROR, MessageConst.E_FINISH.getMessage());
+            redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
         }
         }
 

@@ -28,7 +28,13 @@ import lombok.Setter;
             query = JpaConst.Q_APP_GET_ALL_DEF),
     @NamedQuery(
             name = JpaConst.Q_APP_GET_COUNT,
-            query = JpaConst.Q_APP_GET_COUNT_DEF)
+            query = JpaConst.Q_APP_GET_COUNT_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_APP_GET_ALL_MINE,
+            query = JpaConst.Q_APP_GET_ALL_MINE_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_APP_COUNT_ALL_MINE,
+            query = JpaConst.Q_APP_COUNT_ALL_MINE_DEF)
 })
 
 @Getter

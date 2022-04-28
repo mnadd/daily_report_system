@@ -6,10 +6,17 @@
 
 <c:set var="action" value="${ForwardConst.ACT_APP.getValue()}" />
 <c:set var="commApp" value="${ForwardConst.CMD_APPROVE.getValue()}" />
+<c:set var="commAppF" value="${ForwardConst.CMD_APPRPVEFALSE.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
+<c:set var="commEdt" value="${ForwardConst.CMD_EDIT.getValue()}" />
 
 <c:import url="../layout/app.jsp">
     <c:param name="content">
+        <c:if test="${flushError != null}">
+            <div id="flush_error">
+                <c:out value="${flushError}"></c:out>
+            </div>
+        </c:if>
         <h2>申請内容　詳細ページ</h2>
 
         <table>
@@ -46,20 +53,29 @@
             </tbody>
         </table>
 
+        <c:if test="${sessionScope.login_employee.id == timecardApplication.employee.id}">
+            <p>
+                <a href="<c:url value='?action=${action}&command=${commEdt}&id=${timecardApplication.id}' />">この申請を編集する</a>
+            </p>
+        </c:if>
+        <p><a href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a></p>&nbsp;&nbsp;
 
+    <div id="timecard_approve">
+    <c:if test="${sessionScope.login_employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
        <form method="POST" action="<c:url value='?action=${action}&command=${commApp}' />">
             <input type="hidden" name="${AttributeConst.APP_ID.getValue()}" value="${timecardApplication.id}" />
             <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
             <button type="submit">承認</button>
         </form>
-
+        &nbsp;&nbsp;
         <form method="POST" action="<c:url value='?action=${action}&command=${commAppF}' />">
             <label for="${AttributeConst.APP_COMMENT.getValue()}">差し戻し用コメント</label><br />
             <input type="text" name="${AttributeConst.APP_COMMENT.getValue()}" value="${timecardApplication.comment}" />
             <input type="hidden" name="${AttributeConst.APP_ID.getValue()}" value="${timecardApplication.id}" />
             <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+            <button type="submit">差し戻し</button>
         </form>
-
-        <p><a href="<c:url value='?action=${action}&command=${commIdx}' />">一覧に戻る</a></p>
+    </c:if>
+    </div>
     </c:param>
 </c:import>

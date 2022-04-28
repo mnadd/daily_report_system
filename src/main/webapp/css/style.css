@@ -119,6 +119,9 @@ select {
     text-align: right;
     display: inline-block;
 }
+#timecard_approve {
+    display: inline-block;
+}
 
 #header a {
     color: #eeeeee;
@@ -178,3 +181,18 @@ table#attendance_list .attendance_overtime {
 table#attendance_list .attendance_permit {
     width: 10%;
 }
+table#timecardapplication_list th {
+    font-weight: bold;
+    padding: 10px 2%;
+}
+table#timecardapplication_list .timecardApplication_date {
+    width: 20%;
+    padding: 10px 2%;
+}
+table#timecardapplication_list .timecardApplication_comment {
+    width: 45%;
+}
+table#timecardapplication_list .timecardApplication_action {
+    width: 15%;
+}
+
