@@ -111,7 +111,8 @@ public class TimecardApplicationAction extends ActionBase {
                     time,
                     getRequestParam(AttributeConst.APP_CONTENT),
                     null,
-                    toNumber(getRequestParam(AttributeConst.APP_APPROVE)));
+                    toNumber(getRequestParam(AttributeConst.APP_APPROVE)),
+                    null);
 
 
            List<String> errors = service.create(apv);

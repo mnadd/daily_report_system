@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import actions.views.EmployeeConverter;
@@ -45,6 +46,13 @@ public class TimecardApplicationService extends ServiceBase {
         return count;
     }
 
+    public long countApprove() {
+        long countApp = (long) em.createNamedQuery(JpaConst.Q_APP_COUNT_APPROVE, Long.class)
+                .getSingleResult();
+
+        return countApp;
+    }
+
     public TimecardApplicationView findOne(int id) {
         return TimecardApplicationConverter.toView(findOneInternal(id));
     }
@@ -52,6 +60,8 @@ public class TimecardApplicationService extends ServiceBase {
     public List<String> create(TimecardApplicationView apv) {
         List<String> errors = TimecardApplicationValidator.validate(apv);
         if (errors.size() == 0) {
+            LocalDateTime ldt = LocalDateTime.now();
+            apv.setUpdatedAt(ldt);
             createInternal(apv);
         }
         return errors;
@@ -60,6 +70,8 @@ public class TimecardApplicationService extends ServiceBase {
     public List<String> update(TimecardApplicationView apv) {
         List<String> errors = TimecardApplicationValidator.validate(apv);
         if (errors.size() == 0) {
+            LocalDateTime ldt = LocalDateTime.now();
+            apv.setUpdatedAt(ldt);
             approveInternal(apv);
         }
         return errors;
@@ -68,6 +80,8 @@ public class TimecardApplicationService extends ServiceBase {
     public List<String> approveFalse(TimecardApplicationView apv) {
         List<String> errors = TimecardApplicationValidator.validateComm(apv);
         if (errors.size() == 0) {
+            LocalDateTime ldt = LocalDateTime.now();
+            apv.setUpdatedAt(ldt);
             approveInternal(apv);
         }
         return errors;

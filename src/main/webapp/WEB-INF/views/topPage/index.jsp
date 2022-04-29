@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actTop" value="${ForwardConst.ACT_TOP.getValue()}" />
 <c:set var="actEmp" value="${ForwardConst.ACT_EMP.getValue()}" />
@@ -16,7 +17,10 @@
     <c:param name="content">
         <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"></c:out>
+                <c:out value="${flush}"></c:out><br />
+                <c:if test="${sessionScope.login_employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
+                    新しい申請が ${countApprove} 件あります。<br />
+                </c:if>
             </div>
         </c:if>
         <h2>日報管理システムへようこそ</h2>

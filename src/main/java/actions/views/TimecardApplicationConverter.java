@@ -27,7 +27,8 @@ public class TimecardApplicationConverter {
                         ? null
                         : apv.getAppApprove() ==  AttributeConst.APPROVE_TRUE.getIntegerValue()
                             ? JpaConst.APPROVE_TRUE
-                            : JpaConst.APPROVE_FALSE);
+                            : JpaConst.APPROVE_FALSE,
+                apv.getUpdatedAt());
     }
 
     public static TimecardApplicationView toView(TimecardApplication ap) {
@@ -51,7 +52,8 @@ public class TimecardApplicationConverter {
                 ? null
                 : ap.getAppApprove() ==  JpaConst.APPROVE_TRUE
                     ? AttributeConst.APPROVE_TRUE.getIntegerValue()
-                    : AttributeConst.APPROVE_FALSE.getIntegerValue());
+                    : AttributeConst.APPROVE_FALSE.getIntegerValue(),
+                ap.getUpdatedAt());
     }
 
     public static List<TimecardApplicationView> toViewList(List<TimecardApplication> list) {
@@ -73,6 +75,7 @@ public class TimecardApplicationConverter {
         ap.setAppContent(apv.getAppContent());
         ap.setComment(apv.getComment());
         ap.setAppApprove(apv.getAppApprove());
+        ap.setUpdatedAt(apv.getUpdatedAt());
     }
 
 }

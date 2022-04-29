@@ -11,19 +11,23 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import services.ReportService;
+import services.TimecardApplicationService;
 
 public class TopAction extends ActionBase {
 
     private ReportService service;
+    private TimecardApplicationService appService;
 
     @Override
     public void process() throws ServletException, IOException {
 
         service = new ReportService();
+        appService = new TimecardApplicationService();
 
         invoke();
 
         service.close();
+        appService.close();
     }
 
     public void index() throws ServletException, IOException {
@@ -34,11 +38,13 @@ public class TopAction extends ActionBase {
         List<ReportView> reports = service.getMinePerPage(loginEmployee, page);
 
         long myReportsCount = service.countAllMine(loginEmployee);
+        long countApprove = appService.countApprove();
 
         putRequestScope(AttributeConst.REPORTS, reports);
         putRequestScope(AttributeConst.REP_COUNT, myReportsCount);
         putRequestScope(AttributeConst.PAGE, page);
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE);
+        putRequestScope(AttributeConst.APP_APP_COUNT, countApprove);
 
         String flush = getSessionScope(AttributeConst.FLUSH);
         if(flush != null) {

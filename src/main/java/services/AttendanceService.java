@@ -19,13 +19,6 @@ public class AttendanceService extends ServiceBase {
 
     public List<AttendanceView> getMinePerPage(EmployeeView employee, int page) {
 
-      /*  List<Attendance> attendances = em.createNamedQuery(JpaConst.Q_ATT_COUNT_MONTH, Attendance.class)
-                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
-                .setParameter(JpaConst.JPQL_PARM_DATE, attendanceDate)
-                .getResultList();
-        return AttendanceConverter.toViewList(attendances);
-    }*/
-
        List<Attendance> attendances = em.createNamedQuery(JpaConst.Q_ATT_GET_ALL_MINE, Attendance.class)
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                 .setFirstResult(JpaConst.ATT_ROW_PER_PAGE * (page - 1))

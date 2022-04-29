@@ -5,6 +5,7 @@
 <%@ page import="constants.AttributeConst" %>
 
 <c:set var="actAPP" value="${ForwardConst.ACT_APP.getValue()}" />
+<c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
@@ -15,6 +16,9 @@
             </div>
         </c:if>
         <h2>自分の申請　一覧</h2>
+        <div>
+            <button type="button" onclick="location.href='?action=${actAPP}&command=${commNew}'" >申請</button>
+        </div>
         <table id="timecardapplication_list">
             <tbody>
                 <tr>

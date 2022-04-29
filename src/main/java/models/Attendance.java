@@ -30,10 +30,7 @@ import lombok.Setter;
             query = JpaConst.Q_ATT_COUNT_ALL_MINE_DEF),
     @NamedQuery(
             name = JpaConst.Q_ATT_GET_BY_EMP_AND_DATE,
-            query = JpaConst.Q_ATT_GET_BY_EMP_AND_DATE_DEF),
-    @NamedQuery(
-            name = JpaConst.Q_ATT_COUNT_MONTH,
-            query = JpaConst.Q_ATT_COUNT_MONTH_DEF)
+            query = JpaConst.Q_ATT_GET_BY_EMP_AND_DATE_DEF)
 })
 
 @Getter

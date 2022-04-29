@@ -64,5 +64,19 @@
                 </c:forEach>
             </tbody>
         </table>
+
+        <div id="pagination">
+            (全 ${attendances_count} 件) <br />
+            <c:forEach var="i" begin="1" end="${((attendances_count - 1) / maxRow) + 1}" step="1">
+                <c:choose>
+                    <c:when test="${i == page}">
+                        <c:out value="${i}" />&nbsp;
+                    </c:when>
+                    <c:otherwise>
+                        <a href="<c:url value='?action=${actATT}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>&nbsp;
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </div>
     </c:param>
 </c:import>

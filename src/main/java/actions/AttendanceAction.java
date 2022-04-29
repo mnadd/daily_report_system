@@ -10,6 +10,7 @@ import actions.views.AttendanceView;
 import actions.views.EmployeeView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.JpaConst;
 import constants.MessageConst;
 import services.AttendanceService;
 import services.EmployeeService;
@@ -43,6 +44,7 @@ public class AttendanceAction extends ActionBase {
         putRequestScope(AttributeConst.ATTENDANCES, attendances);
         putRequestScope(AttributeConst.ATT_COUNT, myattendancesCount);
         putRequestScope(AttributeConst.PAGE, page);
+        putRequestScope(AttributeConst.MAX_ROW,JpaConst.ATT_ROW_PER_PAGE);
 
         String flush = getSessionScope(AttributeConst.FLUSH);
         if(flush != null) {

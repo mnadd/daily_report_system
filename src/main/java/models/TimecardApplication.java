@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.Column;
@@ -34,7 +35,10 @@ import lombok.Setter;
             query = JpaConst.Q_APP_GET_ALL_MINE_DEF),
     @NamedQuery(
             name = JpaConst.Q_APP_COUNT_ALL_MINE,
-            query = JpaConst.Q_APP_COUNT_ALL_MINE_DEF)
+            query = JpaConst.Q_APP_COUNT_ALL_MINE_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_APP_COUNT_APPROVE,
+            query = JpaConst.Q_APP_COUNT_APPROVE_DEF)
 })
 
 @Getter
@@ -75,5 +79,8 @@ public class TimecardApplication {
 
     @Column(name = JpaConst.APP_COL_APP_APPROVE, nullable = true)
     private Integer appApprove;
+
+    @Column(name = JpaConst.APP_COL_UPDATED_AT, nullable = false)
+    private LocalDateTime updatedAt;
 
 }

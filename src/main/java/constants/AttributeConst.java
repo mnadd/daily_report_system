@@ -40,7 +40,7 @@ public enum AttributeConst {
 
     ATTENDANCE("attendance"),
     ATTENDANCES("attendances"),
-    ATT_COUNT("attendance_count"),
+    ATT_COUNT("attendances_count"),
     ATT_ID("id"),
     ATT_DATE("attendanceDate"),
     ATT_START("start"),
@@ -60,6 +60,7 @@ public enum AttributeConst {
     APP_CONTENT("appContent"),
     APP_COMMENT("comment"),
     APP_APPROVE("appApprove"),
+    APP_APP_COUNT("countApprove"),
 
     TYPE_START(1),
     TYPE_FINISH(0),

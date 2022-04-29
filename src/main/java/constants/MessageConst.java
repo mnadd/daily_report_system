@@ -21,7 +21,7 @@ public enum MessageConst {
     E_NOTITLE("タイトルを入力してください。"),
     E_NOCONTENT("内容を入力してください。"),
     E_START("出勤は既に押されています。"),
-    E_FINISH("退勤は既に押されています。"),
+    E_FINISH("出勤が押されていません。"),
     E_NONTIME("時間を入力していません"),
     E_COMMENT("コメントを入力してください。");
 
