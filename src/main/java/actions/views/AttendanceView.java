@@ -25,9 +25,4 @@ public class AttendanceView {
     private LocalTime finish;
 
     private LocalTime actualTime;
-
-    private LocalTime overTime;
-
-    private Integer permitFlag;
-
 }

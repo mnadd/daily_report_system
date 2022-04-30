@@ -42,11 +42,6 @@ public interface JpaConst {
     String ATT_COL_START = "start";
     String ATT_COL_FINISH = "finish";
     String ATT_COL_ACT_TIME = "actual_time";
-    String ATT_COL_OVER_TIME = "over_time";
-    String ATT_COL_PERMIT_FLAG = "permit_flag";
-
-    int PERMIT_TRUE = 1;
-    int PERMIT_FALSE = 0;
 
     String TABLE_APP = "timecardApplications";
 

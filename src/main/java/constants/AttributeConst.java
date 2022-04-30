@@ -45,10 +45,6 @@ public enum AttributeConst {
     ATT_DATE("attendanceDate"),
     ATT_START("start"),
     ATT_FINISH("finish"),
-    ATT_PERMIT_FLAG("permit_flag"),
-
-    PERMIT_TRUE(1),
-    PERMIT_FALSE(0),
 
     APPLICATION("timecardApplication"),
     APPLICATIONS("timecardApplications"),

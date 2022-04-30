@@ -87,6 +87,7 @@ public class TimecardApplicationAction extends ActionBase {
 
         TimecardApplicationView apv = new TimecardApplicationView();
         apv.setTimecardApplicationDate(LocalDate.now());
+        apv.setTime(LocalTime.now());
         putRequestScope(AttributeConst.APPLICATION, apv);
 
         forward(ForwardConst.FW_APP_NEW);
@@ -204,6 +205,7 @@ public class TimecardApplicationAction extends ActionBase {
             }
 
             attservice.update(av);
+            attservice.actTime(av);
             service.approve(toNumber(getRequestParam(AttributeConst.APP_ID)));
             putSessionScope(AttributeConst.FLUSH, MessageConst.I_APPROVED.getMessage());
             redirect(ForwardConst.ACT_APP, ForwardConst.CMD_INDEX);

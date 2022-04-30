@@ -62,10 +62,4 @@ public class Attendance {
     @Column(name = JpaConst.ATT_COL_ACT_TIME, nullable = true)
     private LocalTime actualTime;
 
-    @Column(name = JpaConst.ATT_COL_OVER_TIME, nullable = true)
-    private LocalTime overTime;
-
-    @Column(name = JpaConst.ATT_COL_PERMIT_FLAG, nullable = true)
-    private Integer permitFlag;
-
 }

@@ -2,6 +2,7 @@ package actions;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -83,8 +84,6 @@ public class AttendanceAction extends ActionBase {
                        null,
                        null,
                        null,
-                       null,
-                       null,
                        null);
 
                  service.create(av);
@@ -105,6 +104,7 @@ public class AttendanceAction extends ActionBase {
             LocalDate attendanceDate = (toLocalDate(getRequestParam(AttributeConst.ATT_DATE)));
             boolean isValidStart = service.validateStart(ev,  attendanceDate);
             AttendanceView av = service.findOne(ev, attendanceDate);
+
             if(isValidStart && av.getFinish() == null) {
                 if(checkToken()) {
 
@@ -116,6 +116,10 @@ public class AttendanceAction extends ActionBase {
             putSessionScope(AttributeConst.FLUSHERROR, MessageConst.E_FINISH.getMessage());
             redirect(ForwardConst.ACT_ATT, ForwardConst.CMD_INDEX);
         }
+           LocalTime a = service.actTime(av);
+
+           System.out.println("--------------------------------------");
+           System.out.println(a);
         }
 
 }

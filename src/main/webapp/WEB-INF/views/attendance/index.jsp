@@ -4,7 +4,6 @@
 <%@ page import="constants.ForwardConst" %>
 
 <c:set var="actAPP" value="${ForwardConst.ACT_APP.getValue()}" />
-<c:set var="actEmp" value="${ForwardConst.ACT_EMP.getValue()}" />
 <c:set var="actATT" value="${ForwardConst.ACT_ATT.getValue()}" />
 
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
@@ -34,33 +33,18 @@
                     <th class="attendance_start">出勤出勤</th>
                     <th class="attendance_finish">退勤時間</th>
                     <th class="attendance_actualtime">実働時間</th>
-                    <th class="attendance_overtime">残業時間</th>
-                    <th class="attendance_permit">承認</th>
                 </tr>
                 <c:forEach var="attendance" items="${attendances}" varStatus="status">
                     <fmt:parseDate value="${attendance.attendanceDate}" pattern="yyyy-MM-dd" var="attendanceDate" type="date" />
                     <fmt:parseDate value="${attendance.start}" pattern="HH:mm" var="start" type="date" />
                     <fmt:parseDate value="${attendance.finish}" pattern="HH:mm" var="finish" type="date" />
+                    <fmt:parseDate value="${attendance.actualTime}" pattern="HH:mm" var="actualTime" type="date" />
 
                     <tr class="row${status.count % 2}">
                         <td class="attendance_date"><fmt:formatDate value='${attendanceDate}' pattern='MM-dd' /></td>
                         <td class="attendance_start"><fmt:formatDate value='${start}' pattern='HH:mm' /></td>
                         <td class="attendance_finish"><fmt:formatDate value='${finish}' pattern='HH:mm' /></td>
-                        <td class="attendance_actualtime"></td>
-                        <td class="attendance_overtime"></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${sessionScope.permitFlag == AttributeConst.PERMIT_TRUE.getIntegerValue()}">
-                                    済
-                                </c:when>
-                                <c:when test="${sessionScope.permitFlag == AttributeConst.PERMIT_FALSE.getIntegerValue()}">
-                                    未
-                                </c:when>
-                                <c:otherwise>
-                                    <br>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
+                        <td class="attendance_actualtime"><fmt:formatDate value='${actualTime}' pattern='HH:mm' /></td>
                 </c:forEach>
             </tbody>
         </table>

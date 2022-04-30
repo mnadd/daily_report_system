@@ -1,5 +1,6 @@
 package services;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -114,7 +115,7 @@ public class AttendanceService extends ServiceBase {
     public Boolean validateStart(EmployeeView ev, LocalDate attendanceDate) {
 
         boolean isValidAttendance = false;
-        if (ev != null  && !ev.equals("") && attendanceDate != null && !attendanceDate.equals("")) {
+        if (ev != null && attendanceDate != null ) {
             AttendanceView av = findOne(ev, attendanceDate);
 
             if (av != null && av.getId() != null) {
@@ -126,7 +127,19 @@ public class AttendanceService extends ServiceBase {
         return isValidAttendance;
     }
 
+    public LocalTime actTime(AttendanceView av) {
 
 
+        LocalTime start = av.getStart();
+        LocalTime finish = av.getFinish();
+        Duration actTime = Duration.between(start, finish);
+        LocalTime actTimeForm = LocalTime.MIDNIGHT.plus(actTime);
+        LocalTime act = actTimeForm.minusHours(1);
+
+        av.setActualTime(act);
+        workfinInternal(av);
+
+        return act;
+    }
 
 }

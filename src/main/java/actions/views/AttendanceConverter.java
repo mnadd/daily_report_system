@@ -14,10 +14,7 @@ public class AttendanceConverter {
                 av.getAttendanceDate(),
                 av.getStart(),
                 av.getFinish(),
-                av.getActualTime(),
-                av.getOverTime(),
-                av.getPermitFlag());
-
+                av.getActualTime());
     }
 
     public static AttendanceView toView ( Attendance a) {
@@ -31,9 +28,7 @@ public class AttendanceConverter {
                 a.getAttendanceDate(),
                 a.getStart(),
                 a.getFinish(),
-                a.getActualTime(),
-                a.getOverTime(),
-                a.getPermitFlag());
+                a.getActualTime());
     }
 
     public static List<AttendanceView> toViewList(List<Attendance> list) {
@@ -52,8 +47,6 @@ public class AttendanceConverter {
         a.setStart(av.getStart());
         a.setFinish(av.getFinish());
         a.setActualTime(av.getActualTime());
-        a.setOverTime(av.getOverTime());
-        a.setPermitFlag(av.getPermitFlag());
     }
 
 }
