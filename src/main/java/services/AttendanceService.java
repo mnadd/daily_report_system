@@ -3,6 +3,7 @@ package services;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -132,14 +133,25 @@ public class AttendanceService extends ServiceBase {
 
         LocalTime start = av.getStart();
         LocalTime finish = av.getFinish();
-        Duration actTime = Duration.between(start, finish);
-        LocalTime actTimeForm = LocalTime.MIDNIGHT.plus(actTime);
-        LocalTime act = actTimeForm.minusHours(1);
 
-        av.setActualTime(act);
+        LocalTime startA = start.truncatedTo(ChronoUnit.MINUTES);
+        LocalTime finishA = finish.truncatedTo(ChronoUnit.MINUTES);
+
+        Duration actTime = Duration.between(startA, finishA);
+        LocalTime actTimeForm = LocalTime.MIDNIGHT.plus(actTime);
+
+
+        if(actTimeForm.getHour() <= 6 && actTimeForm.getMinute() < 15) {
+            av.setActualTime(actTimeForm);
+        } else if(actTimeForm.getHour() >= 8 ) {
+            av.setActualTime(actTimeForm.minusHours(1));
+        } else {
+            av.setActualTime(actTimeForm.minusMinutes(45));
+        }
+
         workfinInternal(av);
 
-        return act;
+        return actTimeForm;
     }
 
 }

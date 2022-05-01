@@ -18,8 +18,6 @@
         </c:if>
         <h2>従業員　一覧</h2>
 
-        <a href="<c:url value='?action=${actApp}&command=${commIdx}' />">  申請一覧</a>
-
         <table id="employee_list">
             <tbody>
                 <tr>
